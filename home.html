@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ホーム - Dr.直し屋ラーニング</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .streak-card {
+      background: linear-gradient(135deg, #3B82F6, #6366F1);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      margin-bottom: 12px;
+    }
+    .streak-emoji {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .streak-num {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+    .streak-sub {
+      font-size: 13px;
+      opacity: 0.85;
+      margin-top: 4px;
+    }
+    .upgrade-banner {
+      background: linear-gradient(135deg, var(--accent), #F97316);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .upgrade-banner:active {
+      transform: scale(0.98);
+    }
+    .upgrade-banner-text {
+      flex: 1;
+    }
+    .upgrade-banner-title {
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .upgrade-banner-sub {
+      font-size: 11px;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+    .upgrade-banner-arrow {
+      font-size: 20px;
+      flex-shrink: 0;
+      opacity: 0.9;
+    }
+    .quiz-rec-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .quiz-rec-card:active {
+      transform: scale(0.98);
+    }
+    .quiz-rec-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .quiz-rec-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: var(--primary-pale);
+    }
+    .quiz-rec-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .quiz-rec-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-800);
+      margin-bottom: 4px;
+    }
+    .quiz-rec-meta {
+      font-size: 12px;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .video-rec-card {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .video-rec-card:active {
+      transform: scale(0.98);
+    }
+    .video-rec-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .video-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #818CF8, #6366F1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .play-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .play-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: #6366F1;
+      margin-left: 3px;
+    }
+    .video-rec-body {
+      padding: 14px 16px;
+    }
+    .video-rec-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-800);
+      margin-bottom: 4px;
+    }
+    .video-rec-meta {
+      font-size: 12px;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .recent-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    .recent-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .recent-card {
+      flex-shrink: 0;
+      width: 150px;
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .recent-card:active {
+      transform: scale(0.97);
+    }
+    .recent-thumb {
+      width: 100%;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .recent-thumb.bg-blue {
+      background: linear-gradient(135deg, #93BBFD, #3B82F6);
+    }
+    .recent-thumb.bg-green {
+      background: linear-gradient(135deg, #86EFAC, #22C55E);
+    }
+    .recent-thumb.bg-purple {
+      background: linear-gradient(135deg, #C4B5FD, #8B5CF6);
+    }
+    .recent-body {
+      padding: 10px;
+    }
+    .recent-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-800);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .recent-type {
+      font-size: 10px;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+    .genre-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .genre-shortcut {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius-sm);
+      padding: 16px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .genre-shortcut:active {
+      transform: scale(0.97);
+    }
+    .genre-shortcut:hover {
+      box-shadow: var(--shadow);
+    }
+    .genre-shortcut-emoji {
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+    .genre-shortcut-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="app-body">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <h1>Dr.直し屋ラーニング</h1>
+      </div>
+      <a href="mypage.html" class="header-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+    </header>
+
+    <!-- Streak Card -->
+    <div class="section" style="padding-bottom: 0;">
+      <div class="streak-card anim-fade">
+        <div class="streak-emoji">🔥</div>
+        <div class="streak-num">7日連続学習中</div>
+        <div class="streak-sub">この調子で続けよう！</div>
+      </div>
+    </div>
+
+    <!-- Upgrade Banner -->
+    <div class="section" style="padding-top: 8px; padding-bottom: 0;">
+      <a href="pricing.html" class="upgrade-banner anim-fade">
+        <div style="font-size: 28px; flex-shrink: 0;">👑</div>
+        <div class="upgrade-banner-text">
+          <div class="upgrade-banner-title">有料プランで全コンテンツ解放！</div>
+          <div class="upgrade-banner-sub">200問以上のクイズ＋50本の動画</div>
+        </div>
+        <div class="upgrade-banner-arrow">→</div>
+      </a>
+    </div>
+
+    <!-- Today's Recommended Quizzes -->
+    <div class="section" style="padding-bottom: 0;">
+      <div class="section-title">今日のおすすめ問題</div>
+
+      <a href="quiz-list.html" class="quiz-rec-card">
+        <div class="quiz-rec-icon">🏠</div>
+        <div class="quiz-rec-body">
+          <div class="quiz-rec-title">フローリングの種類を覚えよう</div>
+          <div class="quiz-rec-meta">
+            <span>建材知識・初級・5問</span>
+            <span class="tag tag-free">無料</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="quiz-list.html" class="quiz-rec-card">
+        <div class="quiz-rec-icon" style="background: #FEF3C7;">🎨</div>
+        <div class="quiz-rec-body">
+          <div class="quiz-rec-title">塗装の下地処理 基本テスト</div>
+          <div class="quiz-rec-meta">
+            <span>塗装・中級・10問</span>
+            <span class="tag tag-premium">有料</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Today's Recommended Video -->
+    <div class="section" style="padding-bottom: 0;">
+      <div class="section-title">今日のおすすめ動画</div>
+
+      <a href="video.html" class="video-rec-card">
+        <div class="video-thumb">
+          <div class="play-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="8,5 20,12 8,19"/></svg>
+          </div>
+        </div>
+        <div class="video-rec-body">
+          <div class="flex-between">
+            <div>
+              <div class="video-rec-title">壁紙の貼り方 基礎講座</div>
+              <div class="video-rec-meta">
+                <span>内装・12:30</span>
+                <span class="tag tag-free">無料</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Recently Viewed -->
+    <div class="section" style="padding-bottom: 0;">
+      <div class="section-title">最近見たコンテンツ</div>
+
+      <div class="recent-scroll">
+        <a href="quiz-list.html" class="recent-card">
+          <div class="recent-thumb bg-blue">📝</div>
+          <div class="recent-body">
+            <div class="recent-title">木材の種類テスト</div>
+            <div class="recent-type">クイズ・建材知識</div>
+          </div>
+        </a>
+        <a href="video.html" class="recent-card">
+          <div class="recent-thumb bg-purple">🎬</div>
+          <div class="recent-body">
+            <div class="recent-title">ペンキの塗り方講座</div>
+            <div class="recent-type">動画・塗装</div>
+          </div>
+        </a>
+        <a href="quiz-list.html" class="recent-card">
+          <div class="recent-thumb bg-green">📝</div>
+          <div class="recent-body">
+            <div class="recent-title">安全装備の基本</div>
+            <div class="recent-type">クイズ・道具</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Genre Shortcuts -->
+    <div class="section">
+      <div class="section-title">ジャンルから学ぶ</div>
+
+      <div class="genre-grid">
+        <a href="genres.html" class="genre-shortcut">
+          <div class="genre-shortcut-emoji">🏠</div>
+          <div class="genre-shortcut-name">内装</div>
+        </a>
+        <a href="genres.html" class="genre-shortcut">
+          <div class="genre-shortcut-emoji">🎨</div>
+          <div class="genre-shortcut-name">塗装</div>
+        </a>
+        <a href="genres.html" class="genre-shortcut">
+          <div class="genre-shortcut-emoji">🪵</div>
+          <div class="genre-shortcut-name">建材知識</div>
+        </a>
+        <a href="genres.html" class="genre-shortcut">
+          <div class="genre-shortcut-emoji">🔧</div>
+          <div class="genre-shortcut-name">道具</div>
+        </a>
+        <a href="genres.html" class="genre-shortcut">
+          <div class="genre-shortcut-emoji">🏗️</div>
+          <div class="genre-shortcut-name">施工基礎</div>
+        </a>
+        <a href="favorites.html" class="genre-shortcut">
+          <div class="genre-shortcut-emoji">⭐</div>
+          <div class="genre-shortcut-name">お気に入り</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="home.html" class="nav-item active"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>ホーム</span></a>
+    <a href="genres.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>ジャンル</span></a>
+    <a href="favorites.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>お気に入り</span></a>
+    <a href="mypage.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>マイページ</span></a>
+  </nav>
+</div>
+</body>
+</html>

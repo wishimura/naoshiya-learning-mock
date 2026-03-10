@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>問題管理 - Dr.直し屋ラーニング</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .admin-header {
+      background: #1E293B;
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .admin-header h1 {
+      font-size: 17px;
+      font-weight: 700;
+    }
+    .admin-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .admin-header-left a {
+      color: white;
+      font-size: 18px;
+      display: inline-flex;
+    }
+    .filter-bar {
+      background: var(--gray-50);
+      padding: 14px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .filter-bar select {
+      padding: 8px 32px 8px 12px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-xs);
+      font-size: 13px;
+      background: var(--white);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748B' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .count-text {
+      padding: 10px 20px;
+      font-size: 13px;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+    .action-btn {
+      font-size: 16px;
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: background 0.15s;
+      display: inline-flex;
+    }
+    .action-btn:hover {
+      background: var(--gray-100);
+    }
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 20px;
+      font-size: 14px;
+    }
+    .pagination a,
+    .pagination span {
+      color: var(--primary);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .pagination .disabled {
+      color: var(--gray-300);
+      cursor: default;
+      opacity: 0.5;
+    }
+    .pagination .page-info {
+      color: var(--text-light);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="app-body" style="padding-bottom: 0;">
+
+    <!-- Header -->
+    <div class="admin-header">
+      <div class="admin-header-left">
+        <a href="index.html">←</a>
+        <h1>問題管理</h1>
+      </div>
+      <a href="edit.html" class="btn btn-primary btn-sm" style="width: auto; font-size: 12px; padding: 6px 14px;">＋ 新規追加</a>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <select>
+        <option>全ジャンル</option>
+        <option>内装</option>
+        <option>塗装</option>
+        <option>建材知識</option>
+        <option>道具</option>
+        <option>施工基礎</option>
+      </select>
+      <select>
+        <option>すべて</option>
+        <option>無料</option>
+        <option>有料</option>
+      </select>
+      <a href="csv.html" class="btn btn-outline btn-sm" style="width: auto; font-size: 12px; padding: 6px 14px;">CSV一括登録</a>
+    </div>
+
+    <!-- Count -->
+    <div class="count-text">全 210 件</div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>問題文</th>
+            <th>ジャンル</th>
+            <th>公開</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-size: 12px; color: var(--text-light);">001</td>
+            <td style="font-size: 13px; font-weight: 600; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">壁紙の種類を答えよう</td>
+            <td><span class="tag tag-level">内装</span></td>
+            <td><span class="tag tag-free">無料</span></td>
+            <td style="white-space: nowrap;">
+              <a href="edit.html" class="action-btn">✏️</a>
+              <span class="action-btn">🗑️</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size: 12px; color: var(--text-light);">002</td>
+            <td style="font-size: 13px; font-weight: 600; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">フローリングの工法</td>
+            <td><span class="tag tag-level">内装</span></td>
+            <td><span class="tag tag-free">無料</span></td>
+            <td style="white-space: nowrap;">
+              <a href="edit.html" class="action-btn">✏️</a>
+              <span class="action-btn">🗑️</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size: 12px; color: var(--text-light);">003</td>
+            <td style="font-size: 13px; font-weight: 600; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">この部位の名称は？</td>
+            <td><span class="tag tag-level">内装</span></td>
+            <td><span class="tag tag-free">無料</span></td>
+            <td style="white-space: nowrap;">
+              <a href="edit.html" class="action-btn">✏️</a>
+              <span class="action-btn">🗑️</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size: 12px; color: var(--text-light);">004</td>
+            <td style="font-size: 13px; font-weight: 600; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">塗料の下地処理で正しいのは</td>
+            <td><span class="tag tag-level">塗装</span></td>
+            <td><span class="tag tag-premium">有料</span></td>
+            <td style="white-space: nowrap;">
+              <a href="edit.html" class="action-btn">✏️</a>
+              <span class="action-btn">🗑️</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size: 12px; color: var(--text-light);">005</td>
+            <td style="font-size: 13px; font-weight: 600; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">合板の種類として正しいのは</td>
+            <td><span class="tag tag-level">建材</span></td>
+            <td><span class="tag tag-premium">有料</span></td>
+            <td style="white-space: nowrap;">
+              <a href="edit.html" class="action-btn">✏️</a>
+              <span class="action-btn">🗑️</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <span class="disabled">← 前へ</span>
+      <span class="page-info">1 / 42 ページ</span>
+      <a>次へ →</a>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

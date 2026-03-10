@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プラン選択 - Dr.直し屋ラーニング</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .pricing-hero {
+      text-align: center;
+      padding: 36px 24px 28px;
+    }
+    .pricing-hero-emoji {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+    .pricing-hero h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gray-800);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    .pricing-hero p {
+      font-size: 14px;
+      color: var(--text-light);
+    }
+    .comparison-card {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .comparison-heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gray-800);
+      margin-bottom: 14px;
+    }
+    .comparison-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .comparison-item:last-child {
+      margin-bottom: 0;
+    }
+    .comparison-icon {
+      flex-shrink: 0;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .comparison-item.disabled {
+      color: var(--gray-400);
+    }
+    .price-feature-list {
+      text-align: left;
+      margin: 20px 0;
+    }
+    .price-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 8px;
+      color: var(--gray-700);
+    }
+    .price-feature-item:last-child {
+      margin-bottom: 0;
+    }
+    .price-feature-check {
+      flex-shrink: 0;
+      color: var(--primary);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .price-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-800);
+      margin-bottom: 12px;
+    }
+    .price-note {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="app-body">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <a href="mypage.html" class="header-back">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </a>
+        <h1>プラン選択</h1>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <div class="pricing-hero">
+      <div class="pricing-hero-emoji">&#x1F451;</div>
+      <h2>すべてのコンテンツを<br>解放しよう</h2>
+      <p>プロの技術を余すことなく学べます</p>
+    </div>
+
+    <!-- Free vs Paid Comparison -->
+    <div class="section" style="padding-top: 0;">
+      <div class="comparison-card">
+        <div class="comparison-heading">無料プランでできること</div>
+
+        <div class="comparison-item">
+          <span class="comparison-icon">&#x2705;</span>
+          <span>基礎クイズ30問</span>
+        </div>
+        <div class="comparison-item">
+          <span class="comparison-icon">&#x2705;</span>
+          <span>入門動画5本</span>
+        </div>
+        <div class="comparison-item">
+          <span class="comparison-icon">&#x2705;</span>
+          <span>学習進捗の記録</span>
+        </div>
+
+        <div style="height: 12px;"></div>
+
+        <div class="comparison-item disabled">
+          <span class="comparison-icon">&#x274C;</span>
+          <span>応用・実践クイズ170問以上</span>
+        </div>
+        <div class="comparison-item disabled">
+          <span class="comparison-icon">&#x274C;</span>
+          <span>プロ向け動画45本以上</span>
+        </div>
+        <div class="comparison-item disabled">
+          <span class="comparison-icon">&#x274C;</span>
+          <span>新コンテンツ優先公開</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paid Plan Card -->
+    <div class="section" style="padding-top: 0;">
+      <div class="price-card best" style="margin-top: 8px;">
+        <div class="price-label">有料プラン</div>
+        <div>
+          <span class="price-num">&#xA5;9,800</span>
+          <span class="price-sub"> / 月（税込）</span>
+        </div>
+
+        <div class="price-feature-list">
+          <div class="price-feature-item">
+            <span class="price-feature-check">&#x2713;</span>
+            <span>すべてのクイズ問題200問以上</span>
+          </div>
+          <div class="price-feature-item">
+            <span class="price-feature-check">&#x2713;</span>
+            <span>すべての動画講座50本以上</span>
+          </div>
+          <div class="price-feature-item">
+            <span class="price-feature-check">&#x2713;</span>
+            <span>お気に入り無制限保存</span>
+          </div>
+          <div class="price-feature-item">
+            <span class="price-feature-check">&#x2713;</span>
+            <span>新コンテンツ優先公開</span>
+          </div>
+          <div class="price-feature-item">
+            <span class="price-feature-check">&#x2713;</span>
+            <span>いつでも解約可能</span>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="margin-top: 4px;">クレジットカードで申し込む</button>
+        <div class="price-note text-center">初月から即時利用可能・いつでも解約OK</div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="section">
+      <div class="section-title">よくある質問</div>
+
+      <div class="faq-item">
+        <div class="faq-q">Q. いつでも解約できますか？</div>
+        <div class="faq-a">はい、マイページからいつでも解約手続きが可能です。解約後は次の更新日まで有料プランをご利用いただけます。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Q. 支払い方法は？</div>
+        <div class="faq-a">クレジットカード（Visa、Mastercard、JCB、AMEX）に対応しています。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Q. 有料プランの内容は増えますか？</div>
+        <div class="faq-a">はい、毎月新しいクイズや動画コンテンツを追加しています。有料会員の方は追加料金なしですべてご利用いただけます。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Q. 無料プランに戻せますか？</div>
+        <div class="faq-a">はい、解約手続き後、次の更新日をもって自動的に無料プランに戻ります。</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

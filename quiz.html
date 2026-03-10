@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>内装クイズ - Dr.直し屋ラーニング</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .quiz-progress {
+      padding: 14px 20px;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .quiz-progress-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .quiz-progress-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-800);
+    }
+    .quiz-progress-genre {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    .quiz-progress-bar {
+      height: 8px;
+      background: var(--gray-100);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: var(--accent);
+      transition: width 0.4s;
+    }
+    .question-image {
+      margin: 20px 20px 0;
+      aspect-ratio: 4/3;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, #FEF3C7, #FDE68A, #FBBF24);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      overflow: hidden;
+    }
+    .question-image-emoji {
+      font-size: 64px;
+    }
+    .question-image-text {
+      font-size: 13px;
+      color: #92400E;
+      font-weight: 600;
+    }
+    .question-text {
+      padding: 20px 20px 4px;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.6;
+      color: var(--gray-800);
+    }
+    .options-area {
+      padding: 16px 20px;
+    }
+    .quiz-option .quiz-num.correct-num {
+      background: #DCFCE7;
+      color: #166534;
+    }
+    .quiz-option .quiz-num.wrong-num {
+      background: #FEE2E2;
+      color: #991B1B;
+    }
+    .answer-btn-area {
+      padding: 0 20px 16px;
+      display: none;
+    }
+    .answer-btn-area.show {
+      display: block;
+    }
+    .result-card {
+      margin: 0 20px 16px;
+      padding: 24px;
+      border-radius: var(--radius);
+      text-align: center;
+      display: none;
+    }
+    .result-card.show {
+      display: block;
+      animation: popIn 0.3s ease;
+    }
+    .result-card.correct {
+      background: linear-gradient(135deg, #DCFCE7, #BBF7D0);
+      border: 2px solid #22C55E;
+    }
+    .result-card.wrong {
+      background: linear-gradient(135deg, #FEE2E2, #FECACA);
+      border: 2px solid #EF4444;
+    }
+    .result-emoji {
+      font-size: 48px;
+      margin-bottom: 8px;
+    }
+    .result-text {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .result-card.correct .result-text {
+      color: #166534;
+    }
+    .result-card.wrong .result-text {
+      color: #991B1B;
+    }
+    .result-sub {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+    .explanation-card {
+      margin: 0 20px 16px;
+      padding: 16px;
+      background: var(--primary-bg);
+      border-radius: var(--radius);
+      border-left: 4px solid var(--primary);
+      display: none;
+    }
+    .explanation-card.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    .explanation-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .explanation-text {
+      font-size: 13px;
+      color: var(--gray-700);
+      line-height: 1.7;
+    }
+    .next-btn-area {
+      padding: 0 20px 24px;
+      display: none;
+    }
+    .next-btn-area.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="app-body">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <a href="quiz-list.html" class="header-back">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </a>
+        <h1>内装クイズ</h1>
+      </div>
+      <span class="fav on" id="headerFav" style="font-size: 20px; cursor: pointer;">♥</span>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="quiz-progress">
+      <div class="quiz-progress-top">
+        <div class="quiz-progress-label">問題 3 / 10</div>
+        <div class="quiz-progress-genre">内装・中級</div>
+      </div>
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" style="width: 30%;"></div>
+      </div>
+    </div>
+
+    <!-- Question Image -->
+    <div class="question-image">
+      <div class="question-image-emoji">🚪</div>
+      <div class="question-image-text">建具の部位イメージ図</div>
+    </div>
+
+    <!-- Question Text -->
+    <div class="question-text">この部位の名称として最も適切なものは？</div>
+
+    <!-- Options -->
+    <div class="options-area" id="optionsArea">
+      <div class="quiz-option" data-index="0">
+        <div class="quiz-num">A</div>
+        <div>鴨居（かもい）</div>
+      </div>
+      <div class="quiz-option" data-index="1">
+        <div class="quiz-num">B</div>
+        <div>敷居（しきい）</div>
+      </div>
+      <div class="quiz-option" data-index="2">
+        <div class="quiz-num">C</div>
+        <div>廻り縁（まわりぶち）</div>
+      </div>
+      <div class="quiz-option" data-index="3" data-correct="true">
+        <div class="quiz-num">D</div>
+        <div>巾木（はばき）</div>
+      </div>
+    </div>
+
+    <!-- Answer Button -->
+    <div class="answer-btn-area" id="answerBtnArea">
+      <button class="btn btn-primary" id="answerBtn">回答する</button>
+    </div>
+
+    <!-- Result Card -->
+    <div class="result-card correct" id="resultCard">
+      <div class="result-emoji">🎉</div>
+      <div class="result-text">正解!</div>
+      <div class="result-sub">すばらしい！正しい答えを選びました</div>
+    </div>
+
+    <!-- Wrong Result Card (hidden, for wrong answers) -->
+    <div class="result-card wrong" id="resultCardWrong">
+      <div class="result-emoji">😢</div>
+      <div class="result-text">不正解...</div>
+      <div class="result-sub">正解は D) 巾木（はばき）です</div>
+    </div>
+
+    <!-- Explanation -->
+    <div class="explanation-card" id="explanationCard">
+      <div class="explanation-title">解説</div>
+      <div class="explanation-text">
+        巾木（はばき）とは、壁と床の接する部分に取り付ける細長い板状の部材です。壁の下部を保護し、床材と壁材の隙間を隠す役割があります。木製、樹脂製、アルミ製など様々な素材があり、部屋の雰囲気に合わせて選択します。
+      </div>
+    </div>
+
+    <!-- Next Button -->
+    <div class="next-btn-area" id="nextBtnArea">
+      <a href="quiz.html" class="btn btn-accent">次の問題へ →</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  const options = document.querySelectorAll('.quiz-option');
+  const answerBtnArea = document.getElementById('answerBtnArea');
+  const answerBtn = document.getElementById('answerBtn');
+  const resultCard = document.getElementById('resultCard');
+  const resultCardWrong = document.getElementById('resultCardWrong');
+  const explanationCard = document.getElementById('explanationCard');
+  const nextBtnArea = document.getElementById('nextBtnArea');
+  const headerFav = document.getElementById('headerFav');
+
+  let selectedOption = null;
+  let answered = false;
+
+  // Select option
+  options.forEach(function(opt) {
+    opt.addEventListener('click', function() {
+      if (answered) return;
+      // Remove previous selection
+      options.forEach(function(o) { o.classList.remove('selected'); });
+      // Select this one
+      opt.classList.add('selected');
+      selectedOption = opt;
+      // Show answer button
+      answerBtnArea.classList.add('show');
+    });
+  });
+
+  // Answer button
+  answerBtn.addEventListener('click', function() {
+    if (!selectedOption || answered) return;
+    answered = true;
+
+    var isCorrect = selectedOption.hasAttribute('data-correct');
+
+    // Disable further selection
+    options.forEach(function(opt) {
+      opt.style.pointerEvents = 'none';
+    });
+
+    // Find the correct option
+    var correctOpt = document.querySelector('.quiz-option[data-correct]');
+
+    if (isCorrect) {
+      selectedOption.classList.remove('selected');
+      selectedOption.classList.add('correct');
+      selectedOption.querySelector('.quiz-num').classList.add('correct-num');
+      resultCard.classList.add('show');
+    } else {
+      selectedOption.classList.remove('selected');
+      selectedOption.classList.add('wrong');
+      selectedOption.querySelector('.quiz-num').classList.add('wrong-num');
+      correctOpt.classList.add('correct');
+      correctOpt.querySelector('.quiz-num').classList.add('correct-num');
+      resultCardWrong.classList.add('show');
+    }
+
+    // Hide answer button
+    answerBtnArea.classList.remove('show');
+
+    // Show explanation and next button after a short delay
+    setTimeout(function() {
+      explanationCard.classList.add('show');
+      nextBtnArea.classList.add('show');
+    }, 400);
+  });
+
+  // Fav toggle
+  headerFav.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (headerFav.classList.contains('on')) {
+      headerFav.classList.remove('on');
+      headerFav.textContent = '♡';
+    } else {
+      headerFav.classList.add('on');
+      headerFav.textContent = '♥';
+    }
+  });
+})();
+</script>
+</body>
+</html>

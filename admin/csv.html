@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSVインポート - Dr.直し屋ラーニング</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .admin-header {
+      background: #1E293B;
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .admin-header h1 {
+      font-size: 17px;
+      font-weight: 700;
+    }
+    .admin-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .admin-header-left a {
+      color: white;
+      font-size: 18px;
+      display: inline-flex;
+    }
+    .csv-format-card {
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      border: 1px solid var(--gray-100);
+    }
+    .csv-code {
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 11px;
+      line-height: 1.7;
+      color: var(--gray-700);
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .result-card {
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-100);
+      margin-bottom: 10px;
+    }
+    .result-card-success {
+      border-left: 4px solid var(--success);
+    }
+    .result-card-error {
+      border-left: 4px solid var(--danger);
+    }
+    .result-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .result-desc {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    .error-list {
+      margin-top: 10px;
+      padding: 0;
+      list-style: none;
+    }
+    .error-list li {
+      font-size: 12px;
+      color: var(--danger);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--gray-100);
+      display: flex;
+      gap: 6px;
+    }
+    .error-list li:last-child {
+      border-bottom: none;
+    }
+    .error-list li .error-label {
+      font-weight: 600;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="app-body" style="padding-bottom: 0;">
+
+    <!-- Header -->
+    <div class="admin-header">
+      <div class="admin-header-left">
+        <a href="questions.html">←</a>
+        <h1>CSVインポート</h1>
+      </div>
+    </div>
+
+    <!-- Upload Section -->
+    <div class="section">
+      <div class="upload-area">
+        <div style="font-size: 36px; margin-bottom: 10px;">📄</div>
+        <div style="font-size: 15px; font-weight: 600; margin-bottom: 4px;">CSVファイルをドラッグ＆ドロップ</div>
+        <div style="font-size: 12px; color: var(--text-light); margin-bottom: 14px;">またはクリックして選択</div>
+        <button class="btn btn-outline btn-sm" style="width: auto; display: inline-flex;">ファイルを選択</button>
+      </div>
+    </div>
+
+    <!-- CSV Format Section -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-title">CSVフォーマット</div>
+      <div class="csv-format-card">
+        <div class="csv-code">genre,difficulty,access,question,choice_a,choice_b,choice_c,choice_d,answer,explanation
+内装,初級,無料,壁紙の種類は？,ビニール,布,紙,すべて正解,D,壁紙には複数の素材があります
+塗装,中級,有料,下地処理で重要なのは？,脱脂,研磨,パテ埋め,すべて重要,D,下地処理は品質を左右します</div>
+      </div>
+      <div style="margin-top: 12px;">
+        <button class="btn btn-outline btn-sm" style="width: auto; display: inline-flex;">サンプルCSVをダウンロード</button>
+      </div>
+    </div>
+
+    <!-- Import Result Section -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-title">インポート結果</div>
+
+      <!-- Success -->
+      <div class="result-card result-card-success">
+        <div class="result-title" style="color: var(--success);">✅ 成功: 18件</div>
+        <div class="result-desc">正常にインポートされた問題数</div>
+      </div>
+
+      <!-- Error -->
+      <div class="result-card result-card-error">
+        <div class="result-title" style="color: var(--danger);">❌ エラー: 2件</div>
+        <div class="result-desc">以下の行でエラーが発生しました</div>
+        <ul class="error-list">
+          <li>
+            <span class="error-label">行 5:</span>
+            <span>正解の選択肢が未指定です</span>
+          </li>
+          <li>
+            <span class="error-label">行 12:</span>
+            <span>ジャンル「電気」は未登録のジャンルです</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Import Button -->
+    <div class="section" style="padding-top: 0; padding-bottom: 32px;">
+      <button class="btn btn-primary">インポートを実行</button>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

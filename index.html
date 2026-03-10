@@ -1,1656 +1,236 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dr.直し屋 ラーニング - DIY・内装・建材のプロを目指す学習アプリ</title>
-<style>
-:root {
-  --primary: #1B4332;
-  --primary-light: #2D6A4F;
-  --primary-pale: #D8F3DC;
-  --accent: #E09F3E;
-  --accent-dark: #C4880E;
-  --bg: #F8F6F0;
-  --white: #FFFFFF;
-  --gray-50: #FAFAF8;
-  --gray-100: #F0EDE6;
-  --gray-200: #E2DED4;
-  --gray-300: #C8C3B8;
-  --gray-400: #9E9888;
-  --gray-500: #736D60;
-  --gray-600: #52503E;
-  --text: #2C2C2C;
-  --text-light: #6B6B6B;
-  --danger: #E63946;
-  --success: #2D6A4F;
-  --info: #457B9D;
-  --radius: 12px;
-  --radius-sm: 8px;
-  --shadow: 0 2px 8px rgba(0,0,0,0.08);
-  --shadow-lg: 0 4px 20px rgba(0,0,0,0.12);
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-.screen { max-width: 430px; margin: 0 auto 60px; background: var(--white); min-height: 100vh; position: relative; border-left: 1px solid var(--gray-200); border-right: 1px solid var(--gray-200); }
-.screen-label { background: var(--primary); color: var(--white); text-align: center; padding: 8px; font-size: 12px; letter-spacing: 1px; font-weight: 600; position: sticky; top: 0; z-index: 100; }
-
-/* Header */
-.header { background: var(--primary); color: var(--white); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
-.header h1 { font-size: 18px; font-weight: 700; }
-.header-icon { width: 28px; height: 28px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; }
-.header-back { font-size: 20px; cursor: pointer; margin-right: 12px; }
-.header-left { display: flex; align-items: center; }
-
-/* Bottom Nav */
-.bottom-nav { display: flex; background: var(--white); border-top: 1px solid var(--gray-200); padding: 8px 0 12px; position: sticky; bottom: 0; z-index: 50; }
-.bottom-nav-item { flex: 1; text-align: center; font-size: 10px; color: var(--gray-400); text-decoration: none; padding: 4px 0; }
-.bottom-nav-item.active { color: var(--primary); }
-.bottom-nav-item .nav-icon { font-size: 20px; display: block; margin-bottom: 2px; }
-
-/* Buttons */
-.btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 24px; border-radius: var(--radius); font-size: 16px; font-weight: 600; border: none; cursor: pointer; text-decoration: none; transition: all 0.2s; width: 100%; }
-.btn-primary { background: var(--accent); color: var(--white); }
-.btn-primary:hover { background: var(--accent-dark); }
-.btn-secondary { background: var(--primary); color: var(--white); }
-.btn-secondary:hover { background: var(--primary-light); }
-.btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
-.btn-outline:hover { background: var(--primary-pale); }
-.btn-sm { padding: 8px 16px; font-size: 13px; }
-.btn-google { background: var(--white); border: 1px solid var(--gray-200); color: var(--text); }
-.btn-danger { background: var(--danger); color: var(--white); }
-
-/* Cards */
-.card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-bottom: 12px; border: 1px solid var(--gray-100); }
-.card-hover { transition: transform 0.2s; cursor: pointer; }
-.card-hover:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-
-/* Utilities */
-.p-20 { padding: 20px; }
-.px-20 { padding-left: 20px; padding-right: 20px; }
-.py-12 { padding-top: 12px; padding-bottom: 12px; }
-.mb-8 { margin-bottom: 8px; }
-.mb-12 { margin-bottom: 12px; }
-.mb-16 { margin-bottom: 16px; }
-.mb-20 { margin-bottom: 20px; }
-.mb-24 { margin-bottom: 24px; }
-.mt-12 { margin-top: 12px; }
-.mt-20 { margin-top: 20px; }
-.flex { display: flex; }
-.flex-between { display: flex; justify-content: space-between; align-items: center; }
-.flex-center { display: flex; align-items: center; justify-content: center; }
-.gap-8 { gap: 8px; }
-.gap-12 { gap: 12px; }
-.text-sm { font-size: 13px; }
-.text-xs { font-size: 11px; }
-.text-lg { font-size: 20px; }
-.text-xl { font-size: 24px; }
-.text-2xl { font-size: 32px; }
-.text-center { text-align: center; }
-.text-light { color: var(--text-light); }
-.text-accent { color: var(--accent); }
-.text-primary { color: var(--primary); }
-.text-white { color: var(--white); }
-.text-danger { color: var(--danger); }
-.font-bold { font-weight: 700; }
-.w-full { width: 100%; }
-.rounded { border-radius: var(--radius); }
-
-/* Tags */
-.tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-.tag-free { background: var(--primary-pale); color: var(--primary); }
-.tag-premium { background: #FFF3CD; color: #856404; }
-.tag-done { background: #D4EDDA; color: #155724; }
-.tag-new { background: #FFE0E0; color: #C0392B; }
-.tag-difficulty { background: var(--gray-100); color: var(--gray-500); }
-
-/* Progress Bar */
-.progress-bar { height: 8px; background: var(--gray-100); border-radius: 4px; overflow: hidden; }
-.progress-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--primary), var(--primary-light)); transition: width 0.3s; }
-.progress-accent .progress-fill { background: linear-gradient(90deg, var(--accent), var(--accent-dark)); }
-
-/* Input */
-.input-group { margin-bottom: 16px; }
-.input-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
-.input-field { width: 100%; padding: 12px 16px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 15px; outline: none; transition: border 0.2s; background: var(--gray-50); }
-.input-field:focus { border-color: var(--primary); background: var(--white); }
-select.input-field { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B6B6B' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
-textarea.input-field { resize: vertical; min-height: 100px; }
-
-/* Tabs */
-.tabs { display: flex; border-bottom: 2px solid var(--gray-100); }
-.tab { flex: 1; text-align: center; padding: 12px; font-size: 14px; font-weight: 600; color: var(--gray-400); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
-.tab.active { color: var(--primary); border-bottom-color: var(--primary); }
-
-/* Streak */
-.streak-badge { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #FF6B35, #E09F3E); color: var(--white); padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 14px; }
-
-/* Divider */
-.divider { height: 1px; background: var(--gray-200); margin: 20px 0; }
-.divider-text { text-align: center; position: relative; margin: 20px 0; }
-.divider-text::before { content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 1px; background: var(--gray-200); }
-.divider-text span { background: var(--white); padding: 0 12px; position: relative; color: var(--text-light); font-size: 13px; }
-
-/* Banner */
-.banner { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: var(--white); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
-.banner-accent { background: linear-gradient(135deg, var(--accent), #D4880E); }
-
-/* Hero */
-.hero { background: linear-gradient(135deg, var(--primary) 0%, #1B5E3A 50%, var(--primary-light) 100%); color: var(--white); padding: 48px 24px 40px; text-align: center; }
-.hero h2 { font-size: 26px; line-height: 1.4; margin-bottom: 12px; }
-.hero p { font-size: 15px; opacity: 0.9; margin-bottom: 24px; }
-
-/* Thumbnail */
-.thumb { width: 100%; aspect-ratio: 16/9; background: var(--gray-100); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--gray-400); font-size: 32px; overflow: hidden; position: relative; }
-.thumb-sm { width: 80px; height: 60px; flex-shrink: 0; aspect-ratio: auto; border-radius: 6px; }
-
-/* Lock overlay */
-.lock-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; border-radius: var(--radius-sm); }
-
-/* Admin */
-.admin-header { background: #2C2C2C; }
-.admin-card { border-left: 4px solid var(--primary); }
-
-/* Table */
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--gray-100); }
-th { background: var(--gray-50); font-weight: 600; color: var(--text-light); font-size: 11px; text-transform: uppercase; }
-
-/* Quiz Option */
-.quiz-option { padding: 14px 16px; border: 2px solid var(--gray-200); border-radius: var(--radius); margin-bottom: 10px; cursor: pointer; transition: all 0.2s; font-size: 15px; display: flex; align-items: center; gap: 12px; }
-.quiz-option:hover { border-color: var(--primary); background: var(--primary-pale); }
-.quiz-option.selected { border-color: var(--primary); background: var(--primary-pale); }
-.quiz-option.correct { border-color: var(--success); background: #D4EDDA; }
-.quiz-option.wrong { border-color: var(--danger); background: #FFE0E0; }
-.quiz-num { width: 28px; height: 28px; border-radius: 50%; background: var(--gray-100); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
-
-/* Upload area */
-.upload-area { border: 2px dashed var(--gray-300); border-radius: var(--radius); padding: 32px; text-align: center; color: var(--text-light); cursor: pointer; transition: all 0.2s; }
-.upload-area:hover { border-color: var(--primary); background: var(--primary-pale); }
-
-/* FAQ */
-.faq-item { border-bottom: 1px solid var(--gray-100); padding: 16px 0; }
-.faq-q { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
-.faq-a { font-size: 13px; color: var(--text-light); }
-
-/* Favorite icon */
-.fav-icon { color: var(--gray-300); cursor: pointer; font-size: 18px; }
-.fav-icon.active { color: var(--danger); }
-
-/* Stat card */
-.stat-card { text-align: center; padding: 16px 12px; background: var(--gray-50); border-radius: var(--radius-sm); }
-.stat-num { font-size: 28px; font-weight: 700; color: var(--primary); }
-.stat-label { font-size: 11px; color: var(--text-light); margin-top: 4px; }
-
-/* Feature icon */
-.feature-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
-
-/* Section title */
-.section-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-.section-title .icon { font-size: 18px; }
-
-/* Pricing */
-.price-card { border: 2px solid var(--gray-200); border-radius: var(--radius); padding: 24px; text-align: center; }
-.price-card.recommended { border-color: var(--accent); position: relative; }
-.price-card.recommended::before { content: 'おすすめ'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; padding: 2px 16px; border-radius: 12px; font-size: 12px; font-weight: 600; }
-.price-amount { font-size: 36px; font-weight: 700; color: var(--primary); }
-.price-period { font-size: 14px; color: var(--text-light); }
-
-/* Calendar streak */
-.streak-calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
-.streak-day { aspect-ratio: 1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; }
-.streak-day.done { background: var(--primary); color: var(--white); }
-.streak-day.today { background: var(--accent); color: var(--white); }
-.streak-day.empty { background: var(--gray-100); color: var(--gray-400); }
-
-/* Genre card colors */
-.genre-interior { border-left: 4px solid #E09F3E; }
-.genre-paint { border-left: 4px solid #457B9D; }
-.genre-material { border-left: 4px solid #6A994E; }
-.genre-tools { border-left: 4px solid #BC4749; }
-.genre-basic { border-left: 4px solid #7B2CBF; }
-
-/* Result animation */
-.result-correct { animation: popIn 0.3s ease; }
-.result-wrong { animation: shake 0.3s ease; }
-@keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-@keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-
-/* Responsive */
-@media (min-width: 768px) {
-  .screen { margin: 20px auto 60px; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); min-height: auto; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr.直し屋ラーニング</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hero-logo {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+    .hero-brand {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      opacity: 0.85;
+      margin-bottom: 20px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius);
+      padding: 20px 14px;
+      text-align: center;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .feature-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .feature-emoji {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .feature-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--gray-800);
+    }
+    .feature-card p {
+      font-size: 12px;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .price-features {
+      text-align: left;
+      margin-top: 16px;
+    }
+    .price-features li {
+      font-size: 12px;
+      color: var(--gray-600);
+      margin-bottom: 8px;
+      list-style: none;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      line-height: 1.4;
+    }
+    .price-features .check {
+      color: var(--success);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .price-features .cross {
+      color: var(--gray-300);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .about-section {
+      background: var(--gray-50);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .about-section h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--gray-800);
+    }
+    .about-section p {
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary) 0%, #6366F1 100%);
+      border-radius: var(--radius);
+      padding: 32px 20px;
+      text-align: center;
+      color: var(--white);
+    }
+    .cta-section h3 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .cta-section p {
+      font-size: 13px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+    .login-link {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .login-link-white {
+      color: rgba(255,255,255,0.85);
+    }
+    .footer-text {
+      text-align: center;
+      font-size: 11px;
+      color: var(--gray-400);
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
+  <div class="app">
+    <div class="app-body" style="padding-bottom: 0;">
 
-<!-- ============================================ -->
-<!-- SCREEN 1: ランディングページ -->
-<!-- ============================================ -->
-<section class="screen" id="screen-landing">
-<div class="screen-label">SCREEN 1 ─ ランディングページ</div>
-
-<div class="hero">
-  <div style="font-size: 32px; margin-bottom: 8px;">🏠</div>
-  <h2>プロの技術を、<br>あなたの手に。</h2>
-  <p>DIY・内装・塗装・建材の知識を<br>クイズと動画で楽しく学べる</p>
-  <a class="btn btn-primary" style="width: auto; display: inline-flex; padding: 14px 40px;">無料で始める</a>
-  <div style="margin-top: 12px; font-size: 13px; opacity: 0.8;">すでにアカウントをお持ちの方は <a href="#" style="color: var(--accent); text-decoration: underline;">ログイン</a></div>
-</div>
-
-<div class="p-20">
-  <!-- Features -->
-  <div class="section-title"><span class="icon">📚</span> 学べること</div>
-  <div class="card card-hover" style="display: flex; gap: 14px; align-items: center;">
-    <div class="feature-icon" style="background: #FFF3CD;">🧩</div>
-    <div><div class="font-bold text-sm">4択クイズで知識定着</div><div class="text-xs text-light">建材・施工・道具の名称をクイズ形式で学習</div></div>
-  </div>
-  <div class="card card-hover" style="display: flex; gap: 14px; align-items: center;">
-    <div class="feature-icon" style="background: #D8F3DC;">🎬</div>
-    <div><div class="font-bold text-sm">プロの動画講座</div><div class="text-xs text-light">現場で使える技術を動画でわかりやすく解説</div></div>
-  </div>
-  <div class="card card-hover" style="display: flex; gap: 14px; align-items: center;">
-    <div class="feature-icon" style="background: #FFE0E0;">🔥</div>
-    <div><div class="font-bold text-sm">継続学習の見える化</div><div class="text-xs text-light">連続学習日数・進捗グラフでモチベーション維持</div></div>
-  </div>
-  <div class="card card-hover" style="display: flex; gap: 14px; align-items: center;">
-    <div class="feature-icon" style="background: #E8DAEF;">⭐</div>
-    <div><div class="font-bold text-sm">お気に入り保存</div><div class="text-xs text-light">復習したい問題や動画をブックマーク</div></div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Plans -->
-  <div class="section-title"><span class="icon">💡</span> 料金プラン</div>
-
-  <div class="price-card mb-16">
-    <div class="tag tag-free mb-8">無料プラン</div>
-    <div class="price-amount">¥0</div>
-    <div class="price-period mb-12">ずっと無料</div>
-    <div class="text-sm text-light" style="text-align: left;">
-      ✅ 各ジャンルの基礎問題（計30問）<br>
-      ✅ 入門動画 5本<br>
-      ✅ 学習進捗の記録<br>
-      ❌ 応用・実践問題<br>
-      ❌ プロ向け動画講座
-    </div>
-  </div>
-
-  <div class="price-card recommended mb-16" style="margin-top: 24px;">
-    <div class="tag tag-premium mb-8">有料プラン</div>
-    <div class="price-amount">¥1,980</div>
-    <div class="price-period mb-12">/ 月（税込）</div>
-    <div class="text-sm text-light" style="text-align: left;">
-      ✅ すべてのクイズ問題（200問以上）<br>
-      ✅ すべての動画講座（50本以上）<br>
-      ✅ 学習進捗の記録<br>
-      ✅ お気に入り保存<br>
-      ✅ 新コンテンツ優先公開
-    </div>
-    <a class="btn btn-primary mt-12">有料プランに申し込む</a>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- About -->
-  <div class="section-title"><span class="icon">🏢</span> Dr.直し屋とは</div>
-  <p class="text-sm text-light mb-16">
-    「復元・修理・補修で今あるモノを大切に」をコンセプトに、建材・内装の補修技術を提供するプロフェッショナル集団。
-    対面で高額なコンサルティング・指導を行ってきたノウハウを、オンラインで誰でも学べる形にしました。
-  </p>
-
-  <a class="btn btn-secondary mb-12">無料で会員登録する</a>
-  <a class="btn btn-outline">ログインはこちら</a>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SCREEN 2: 会員登録 / ログイン画面 -->
-<!-- ============================================ -->
-<section class="screen" id="screen-auth">
-<div class="screen-label">SCREEN 2 ─ ログイン / 会員登録</div>
-
-<div class="header">
-  <div class="header-left">
-    <span class="header-back">←</span>
-    <h1>ログイン</h1>
-  </div>
-</div>
-
-<div class="p-20">
-  <!-- Tabs -->
-  <div class="tabs mb-20">
-    <div class="tab active" onclick="switchAuthTab('login')">ログイン</div>
-    <div class="tab" onclick="switchAuthTab('register')">新規登録</div>
-  </div>
-
-  <div id="auth-login">
-    <div class="input-group">
-      <label>メールアドレス</label>
-      <input type="email" class="input-field" placeholder="example@email.com">
-    </div>
-    <div class="input-group">
-      <label>パスワード</label>
-      <input type="password" class="input-field" placeholder="パスワードを入力">
-    </div>
-    <div class="text-sm text-light mb-20" style="text-align: right;"><a href="#" style="color: var(--info);">パスワードをお忘れの方</a></div>
-    <button class="btn btn-secondary mb-12">ログイン</button>
-
-    <div class="divider-text"><span>または</span></div>
-
-    <button class="btn btn-google mb-12">
-      <span style="margin-right: 8px; font-size: 18px;">G</span> Googleアカウントでログイン
-    </button>
-  </div>
-
-  <div id="auth-register" style="display: none;">
-    <div class="input-group">
-      <label>お名前</label>
-      <input type="text" class="input-field" placeholder="山田 太郎">
-    </div>
-    <div class="input-group">
-      <label>メールアドレス</label>
-      <input type="email" class="input-field" placeholder="example@email.com">
-    </div>
-    <div class="input-group">
-      <label>パスワード</label>
-      <input type="password" class="input-field" placeholder="8文字以上で設定">
-    </div>
-    <div class="input-group">
-      <label>パスワード（確認）</label>
-      <input type="password" class="input-field" placeholder="もう一度入力">
-    </div>
-    <button class="btn btn-secondary mb-12">無料で会員登録</button>
-
-    <div class="divider-text"><span>または</span></div>
-
-    <button class="btn btn-google mb-12">
-      <span style="margin-right: 8px; font-size: 18px;">G</span> Googleアカウントで登録
-    </button>
-
-    <p class="text-xs text-light text-center mt-12">
-      登録により<a href="#" style="color: var(--info);">利用規約</a>と<a href="#" style="color: var(--info);">プライバシーポリシー</a>に同意したものとみなされます。
-    </p>
-  </div>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SCREEN 3: ホーム画面（ログイン後） -->
-<!-- ============================================ -->
-<section class="screen" id="screen-home">
-<div class="screen-label">SCREEN 3 ─ ホーム画面（ログイン後）</div>
-
-<div class="header">
-  <h1>🏠 Dr.直し屋ラーニング</h1>
-  <div class="header-icon">👤</div>
-</div>
-
-<div class="p-20">
-  <!-- Streak -->
-  <div class="card" style="background: linear-gradient(135deg, #1B4332, #2D6A4F); color: white; text-align: center;">
-    <div style="font-size: 36px; margin-bottom: 4px;">🔥</div>
-    <div style="font-size: 28px; font-weight: 700;">7日連続</div>
-    <div style="font-size: 13px; opacity: 0.8;">学習中！この調子で続けよう</div>
-    <div style="display: flex; justify-content: center; gap: 6px; margin-top: 12px;">
-      <span style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px;">月</span>
-      <span style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px;">火</span>
-      <span style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px;">水</span>
-      <span style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px;">木</span>
-      <span style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px;">金</span>
-      <span style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 11px;">土</span>
-      <span style="width: 28px; height: 28px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 11px;">日</span>
-    </div>
-  </div>
-
-  <!-- Upgrade Banner (for free users) -->
-  <div class="banner banner-accent" style="display: flex; align-items: center; gap: 12px;">
-    <div style="font-size: 28px;">👑</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">有料プランで全コンテンツ解放！</div>
-      <div class="text-xs" style="opacity: 0.9;">200問以上のクイズ＋50本の動画</div>
-    </div>
-    <div style="font-size: 20px;">→</div>
-  </div>
-
-  <!-- Today's Recommended -->
-  <div class="section-title"><span class="icon">🧩</span> 今日のおすすめ問題</div>
-  <div class="card card-hover" style="display: flex; gap: 14px; align-items: center;">
-    <div style="width: 50px; height: 50px; background: var(--primary-pale); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px;">🪵</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">フローリングの種類を覚えよう</div>
-      <div class="text-xs text-light">建材知識 ・ 初級 ・ 5問</div>
-    </div>
-    <span class="tag tag-free">無料</span>
-  </div>
-  <div class="card card-hover" style="display: flex; gap: 14px; align-items: center;">
-    <div style="width: 50px; height: 50px; background: #FFF3CD; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px;">🎨</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">塗装の下地処理 基本テスト</div>
-      <div class="text-xs text-light">塗装 ・ 中級 ・ 10問</div>
-    </div>
-    <span class="tag tag-premium">有料</span>
-  </div>
-
-  <!-- Today's Video -->
-  <div class="section-title mt-20"><span class="icon">🎬</span> 今日のおすすめ動画</div>
-  <div class="card card-hover">
-    <div class="thumb mb-8">
-      <div style="text-align: center;">
-        <div style="font-size: 40px;">▶️</div>
-        <div class="text-sm" style="margin-top: 4px; color: var(--gray-500);">壁紙の貼り方 基礎講座</div>
-      </div>
-    </div>
-    <div class="flex-between">
-      <div>
-        <div class="font-bold text-sm">壁紙の貼り方 基礎講座</div>
-        <div class="text-xs text-light">内装 ・ 12:30</div>
-      </div>
-      <span class="tag tag-free">無料</span>
-    </div>
-  </div>
-
-  <!-- Recently Viewed -->
-  <div class="section-title mt-20"><span class="icon">🕐</span> 最近見たコンテンツ</div>
-  <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px;">
-    <div style="min-width: 140px; background: var(--gray-50); border-radius: var(--radius-sm); padding: 12px;">
-      <div style="font-size: 20px; margin-bottom: 4px;">🧩</div>
-      <div class="text-xs font-bold">巾木の施工方法</div>
-      <div class="text-xs text-light">クイズ ・ 内装</div>
-    </div>
-    <div style="min-width: 140px; background: var(--gray-50); border-radius: var(--radius-sm); padding: 12px;">
-      <div style="font-size: 20px; margin-bottom: 4px;">🎬</div>
-      <div class="text-xs font-bold">パテ処理の基本</div>
-      <div class="text-xs text-light">動画 ・ 塗装</div>
-    </div>
-    <div style="min-width: 140px; background: var(--gray-50); border-radius: var(--radius-sm); padding: 12px;">
-      <div style="font-size: 20px; margin-bottom: 4px;">🧩</div>
-      <div class="text-xs font-bold">電動工具の選び方</div>
-      <div class="text-xs text-light">クイズ ・ 道具</div>
-    </div>
-  </div>
-
-  <!-- Genre shortcut -->
-  <div class="section-title mt-20"><span class="icon">📂</span> ジャンルから学ぶ</div>
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
-    <div class="card card-hover text-center" style="padding: 14px 8px;">
-      <div style="font-size: 28px;">🏠</div>
-      <div class="text-xs font-bold" style="margin-top: 4px;">内装</div>
-    </div>
-    <div class="card card-hover text-center" style="padding: 14px 8px;">
-      <div style="font-size: 28px;">🎨</div>
-      <div class="text-xs font-bold" style="margin-top: 4px;">塗装</div>
-    </div>
-    <div class="card card-hover text-center" style="padding: 14px 8px;">
-      <div style="font-size: 28px;">🪵</div>
-      <div class="text-xs font-bold" style="margin-top: 4px;">建材知識</div>
-    </div>
-    <div class="card card-hover text-center" style="padding: 14px 8px;">
-      <div style="font-size: 28px;">🔧</div>
-      <div class="text-xs font-bold" style="margin-top: 4px;">道具</div>
-    </div>
-    <div class="card card-hover text-center" style="padding: 14px 8px;">
-      <div style="font-size: 28px;">🏗️</div>
-      <div class="text-xs font-bold" style="margin-top: 4px;">施工基礎</div>
-    </div>
-    <div class="card card-hover text-center" style="padding: 14px 8px;">
-      <div style="font-size: 28px;">⭐</div>
-      <div class="text-xs font-bold" style="margin-top: 4px;">お気に入り</div>
-    </div>
-  </div>
-</div>
-
-<!-- Bottom Nav -->
-<div class="bottom-nav">
-  <a class="bottom-nav-item active"><span class="nav-icon">🏠</span>ホーム</a>
-  <a class="bottom-nav-item"><span class="nav-icon">📂</span>ジャンル</a>
-  <a class="bottom-nav-item"><span class="nav-icon">⭐</span>お気に入り</a>
-  <a class="bottom-nav-item"><span class="nav-icon">📊</span>記録</a>
-  <a class="bottom-nav-item"><span class="nav-icon">👤</span>マイページ</a>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SCREEN 4: ジャンル一覧画面 -->
-<!-- ============================================ -->
-<section class="screen" id="screen-genres">
-<div class="screen-label">SCREEN 4 ─ ジャンル一覧</div>
-
-<div class="header">
-  <h1>📂 ジャンル一覧</h1>
-  <div class="header-icon">🔍</div>
-</div>
-
-<div class="p-20">
-  <p class="text-sm text-light mb-16">学びたいジャンルを選択してください</p>
-
-  <div class="card card-hover genre-interior">
-    <div class="flex-between mb-8">
-      <div class="flex gap-12" style="align-items: center;">
-        <div style="font-size: 28px;">🏠</div>
-        <div>
-          <div class="font-bold">内装</div>
-          <div class="text-xs text-light">壁紙・床材・建具の知識</div>
+      <!-- Hero Section -->
+      <div class="hero">
+        <div class="hero-logo">&#x1F3E0;</div>
+        <div class="hero-brand">Dr.直し屋ラーニング</div>
+        <h2>プロの技術を、<br>あなたの手に。</h2>
+        <p>DIY・インテリア・塗装・施工の知識を<br>クイズと動画で楽しく学べるアプリ</p>
+        <a href="login.html" class="btn btn-accent" style="max-width: 260px; margin: 0 auto;">無料で始める</a>
+        <div style="margin-top: 14px;">
+          <a href="login.html" class="login-link login-link-white">ログイン</a>
         </div>
       </div>
-    </div>
-    <div class="flex-between text-xs text-light mb-8">
-      <span>🧩 問題 42問</span>
-      <span>🎬 動画 12本</span>
-      <span>📊 30%完了</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" style="width: 30%;"></div></div>
-  </div>
 
-  <div class="card card-hover genre-paint">
-    <div class="flex-between mb-8">
-      <div class="flex gap-12" style="align-items: center;">
-        <div style="font-size: 28px;">🎨</div>
-        <div>
-          <div class="font-bold">塗装</div>
-          <div class="text-xs text-light">塗料・下地・塗装技法</div>
+      <!-- Features Section -->
+      <div class="section">
+        <div class="section-title"><span class="ico">&#x2728;</span> 4つの特長</div>
+        <div class="features-grid">
+          <div class="feature-card anim-fade">
+            <div class="feature-emoji">&#x1F4DD;</div>
+            <h4>クイズで学習</h4>
+            <p>実践的な問題で知識を定着。解説付きで理解が深まる</p>
+          </div>
+          <div class="feature-card anim-fade">
+            <div class="feature-emoji">&#x1F3AC;</div>
+            <h4>動画レッスン</h4>
+            <p>プロの技術を動画で丁寧に解説。現場のコツが分かる</p>
+          </div>
+          <div class="feature-card anim-fade">
+            <div class="feature-emoji">&#x1F525;</div>
+            <h4>学習ストリーク</h4>
+            <p>毎日の学習を記録。連続日数で習慣化をサポート</p>
+          </div>
+          <div class="feature-card anim-fade">
+            <div class="feature-emoji">&#x2B50;</div>
+            <h4>お気に入り</h4>
+            <p>大事な問題や動画をブックマーク。復習にも便利</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="flex-between text-xs text-light mb-8">
-      <span>🧩 問題 38問</span>
-      <span>🎬 動画 10本</span>
-      <span>📊 55%完了</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" style="width: 55%;"></div></div>
-  </div>
 
-  <div class="card card-hover genre-material">
-    <div class="flex-between mb-8">
-      <div class="flex gap-12" style="align-items: center;">
-        <div style="font-size: 28px;">🪵</div>
-        <div>
-          <div class="font-bold">建材知識</div>
-          <div class="text-xs text-light">木材・金属・各種素材</div>
+      <!-- Pricing Section -->
+      <div class="section">
+        <div class="section-title"><span class="ico">&#x1F4B0;</span> 料金プラン</div>
+        <div class="pricing-grid">
+          <!-- Free Plan -->
+          <div class="price-card">
+            <div style="font-size: 13px; font-weight: 700; color: var(--gray-500); margin-bottom: 8px;">フリープラン</div>
+            <div class="price-num" style="font-size: 32px;">&#165;0</div>
+            <div class="price-sub">ずっと無料</div>
+            <ul class="price-features">
+              <li><span class="check">&#10003;</span> 基本クイズ30問</li>
+              <li><span class="check">&#10003;</span> 入門動画5本</li>
+              <li><span class="check">&#10003;</span> 学習記録</li>
+              <li><span class="cross">&#10005;</span> 上級コンテンツ</li>
+            </ul>
+          </div>
+          <!-- Paid Plan -->
+          <div class="price-card best">
+            <div style="font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 8px;">有料プラン</div>
+            <div class="price-num" style="font-size: 32px;">&#165;9,800</div>
+            <div class="price-sub">/月（税込）</div>
+            <ul class="price-features">
+              <li><span class="check">&#10003;</span> 全200問以上のクイズ</li>
+              <li><span class="check">&#10003;</span> 50本以上の動画</li>
+              <li><span class="check">&#10003;</span> お気に入り機能</li>
+              <li><span class="check">&#10003;</span> 新着コンテンツ優先</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="flex-between text-xs text-light mb-8">
-      <span>🧩 問題 50問</span>
-      <span>🎬 動画 15本</span>
-      <span>📊 10%完了</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" style="width: 10%;"></div></div>
-  </div>
 
-  <div class="card card-hover genre-tools">
-    <div class="flex-between mb-8">
-      <div class="flex gap-12" style="align-items: center;">
-        <div style="font-size: 28px;">🔧</div>
-        <div>
-          <div class="font-bold">道具</div>
-          <div class="text-xs text-light">工具・測定器・安全装備</div>
+      <!-- About Section -->
+      <div class="section">
+        <div class="section-title"><span class="ico">&#x1F3E2;</span> Dr.直し屋とは</div>
+        <div class="about-section">
+          <h4>プロの補修・修復会社が贈るオンライン学習</h4>
+          <p>Dr.直し屋は、住宅・店舗のリペア・補修を専門とするプロフェッショナル集団です。長年の現場経験で培った技術とノウハウを、もっと多くの方に届けたい。そんな想いから「Dr.直し屋ラーニング」を開発しました。DIYや施工の基礎から応用まで、プロの視点で体系的に学べます。</p>
         </div>
       </div>
-    </div>
-    <div class="flex-between text-xs text-light mb-8">
-      <span>🧩 問題 35問</span>
-      <span>🎬 動画 8本</span>
-      <span>📊 0%完了</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
-  </div>
 
-  <div class="card card-hover genre-basic">
-    <div class="flex-between mb-8">
-      <div class="flex gap-12" style="align-items: center;">
-        <div style="font-size: 28px;">🏗️</div>
-        <div>
-          <div class="font-bold">施工基礎</div>
-          <div class="text-xs text-light">施工手順・安全管理・図面</div>
+      <!-- CTA Section -->
+      <div class="section">
+        <div class="cta-section">
+          <h3>さっそく始めよう</h3>
+          <p>まずは無料プランで体験してみましょう</p>
+          <a href="login.html" class="btn btn-accent" style="max-width: 280px; margin: 0 auto;">無料で会員登録する</a>
+          <div style="margin-top: 14px;">
+            <a href="login.html" class="login-link login-link-white">ログインはこちら</a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="flex-between text-xs text-light mb-8">
-      <span>🧩 問題 45問</span>
-      <span>🎬 動画 11本</span>
-      <span>📊 20%完了</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" style="width: 20%;"></div></div>
-  </div>
-</div>
 
-<div class="bottom-nav">
-  <a class="bottom-nav-item"><span class="nav-icon">🏠</span>ホーム</a>
-  <a class="bottom-nav-item active"><span class="nav-icon">📂</span>ジャンル</a>
-  <a class="bottom-nav-item"><span class="nav-icon">⭐</span>お気に入り</a>
-  <a class="bottom-nav-item"><span class="nav-icon">📊</span>記録</a>
-  <a class="bottom-nav-item"><span class="nav-icon">👤</span>マイページ</a>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SCREEN 5: クイズ一覧画面 -->
-<!-- ============================================ -->
-<section class="screen" id="screen-quiz-list">
-<div class="screen-label">SCREEN 5 ─ クイズ一覧</div>
-
-<div class="header">
-  <div class="header-left">
-    <span class="header-back">←</span>
-    <h1>🏠 内装クイズ</h1>
-  </div>
-</div>
-
-<div class="p-20">
-  <div class="flex-between mb-16">
-    <div class="text-sm text-light">全42問 ・ 12問学習済み</div>
-    <select class="input-field" style="width: auto; padding: 6px 30px 6px 10px; font-size: 12px;">
-      <option>すべて</option>
-      <option>未学習のみ</option>
-      <option>学習済み</option>
-    </select>
-  </div>
-
-  <!-- Quiz items -->
-  <div class="card card-hover" style="display: flex; gap: 12px; align-items: flex-start;">
-    <div style="width: 40px; height: 40px; background: #D4EDDA; border-radius: 8px; display: flex; align-items: center; justify-content: center;">✅</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">壁紙（クロス）の種類を答えよう</div>
-      <div class="flex gap-8 mt-12" style="flex-wrap: wrap;">
-        <span class="tag tag-difficulty">初級</span>
-        <span class="tag tag-free">無料</span>
-        <span class="tag tag-done">学習済み</span>
+      <!-- Footer -->
+      <div class="footer-text">
+        &copy; 2026 Dr.直し屋ラーニング All rights reserved.
       </div>
-    </div>
-    <span class="fav-icon active">♥</span>
-  </div>
 
-  <div class="card card-hover" style="display: flex; gap: 12px; align-items: flex-start;">
-    <div style="width: 40px; height: 40px; background: #D4EDDA; border-radius: 8px; display: flex; align-items: center; justify-content: center;">✅</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">フローリングの工法を選べ</div>
-      <div class="flex gap-8 mt-12" style="flex-wrap: wrap;">
-        <span class="tag tag-difficulty">初級</span>
-        <span class="tag tag-free">無料</span>
-        <span class="tag tag-done">学習済み</span>
-      </div>
-    </div>
-    <span class="fav-icon">♡</span>
-  </div>
-
-  <div class="card card-hover" style="display: flex; gap: 12px; align-items: flex-start;">
-    <div style="width: 40px; height: 40px; background: var(--primary-pale); border-radius: 8px; display: flex; align-items: center; justify-content: center;">📝</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">この部位の名称として最も適切なものは？</div>
-      <div class="flex gap-8 mt-12" style="flex-wrap: wrap;">
-        <span class="tag tag-difficulty">中級</span>
-        <span class="tag tag-free">無料</span>
-        <span class="tag tag-new">NEW</span>
-      </div>
-    </div>
-    <span class="fav-icon">♡</span>
-  </div>
-
-  <div class="card card-hover" style="display: flex; gap: 12px; align-items: flex-start;">
-    <div style="width: 40px; height: 40px; background: var(--primary-pale); border-radius: 8px; display: flex; align-items: center; justify-content: center;">📝</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">畳の構造について正しいものは？</div>
-      <div class="flex gap-8 mt-12" style="flex-wrap: wrap;">
-        <span class="tag tag-difficulty">中級</span>
-        <span class="tag tag-premium">有料</span>
-      </div>
-    </div>
-    <span class="fav-icon">♡</span>
-  </div>
-
-  <div class="card card-hover" style="display: flex; gap: 12px; align-items: flex-start;">
-    <div style="width: 40px; height: 40px; background: var(--primary-pale); border-radius: 8px; display: flex; align-items: center; justify-content: center;">📝</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">ドア枠の調整方法として適切なのは？</div>
-      <div class="flex gap-8 mt-12" style="flex-wrap: wrap;">
-        <span class="tag tag-difficulty">上級</span>
-        <span class="tag tag-premium">有料</span>
-      </div>
-    </div>
-    <span class="fav-icon">♡</span>
-  </div>
-
-  <div class="card card-hover" style="display: flex; gap: 12px; align-items: flex-start; opacity: 0.6;">
-    <div style="width: 40px; height: 40px; background: var(--gray-100); border-radius: 8px; display: flex; align-items: center; justify-content: center;">🔒</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">天井補修の手順を正しく並べよ</div>
-      <div class="flex gap-8 mt-12" style="flex-wrap: wrap;">
-        <span class="tag tag-difficulty">上級</span>
-        <span class="tag tag-premium">有料</span>
-      </div>
-    </div>
-    <span class="fav-icon">♡</span>
-  </div>
-</div>
-
-<div class="bottom-nav">
-  <a class="bottom-nav-item"><span class="nav-icon">🏠</span>ホーム</a>
-  <a class="bottom-nav-item active"><span class="nav-icon">📂</span>ジャンル</a>
-  <a class="bottom-nav-item"><span class="nav-icon">⭐</span>お気に入り</a>
-  <a class="bottom-nav-item"><span class="nav-icon">📊</span>記録</a>
-  <a class="bottom-nav-item"><span class="nav-icon">👤</span>マイページ</a>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SCREEN 6: クイズ回答画面 -->
-<!-- ============================================ -->
-<section class="screen" id="screen-quiz">
-<div class="screen-label">SCREEN 6 ─ クイズ回答</div>
-
-<div class="header">
-  <div class="header-left">
-    <span class="header-back">←</span>
-    <h1>内装クイズ</h1>
-  </div>
-  <span class="fav-icon" style="color: white; font-size: 20px;">♡</span>
-</div>
-
-<!-- Progress -->
-<div style="padding: 12px 20px; background: var(--gray-50);">
-  <div class="flex-between text-xs text-light mb-8">
-    <span>問題 3 / 10</span>
-    <span>内装 ・ 中級</span>
-  </div>
-  <div class="progress-bar progress-accent"><div class="progress-fill" style="width: 30%; background: var(--accent);"></div></div>
-</div>
-
-<div class="p-20">
-  <!-- Question image -->
-  <div class="thumb mb-16" style="aspect-ratio: 4/3; background: linear-gradient(135deg, #E8D5B7, #D4C5A9);">
-    <div style="text-align: center;">
-      <div style="font-size: 48px;">🚪</div>
-      <div class="text-xs" style="color: var(--gray-500); margin-top: 4px;">建具の部位イメージ図</div>
     </div>
   </div>
-
-  <!-- Question text -->
-  <div class="font-bold text-lg mb-20" style="line-height: 1.5;">
-    この部位の名称として最も適切なものは？
-  </div>
-
-  <!-- Options - before answer -->
-  <div id="quiz-options">
-    <div class="quiz-option" onclick="selectQuiz(this, false)">
-      <span class="quiz-num">A</span>
-      <span>鴨居（かもい）</span>
-    </div>
-    <div class="quiz-option" onclick="selectQuiz(this, false)">
-      <span class="quiz-num">B</span>
-      <span>敷居（しきい）</span>
-    </div>
-    <div class="quiz-option" onclick="selectQuiz(this, false)">
-      <span class="quiz-num">C</span>
-      <span>廻り縁（まわりぶち）</span>
-    </div>
-    <div class="quiz-option" onclick="selectQuiz(this, true)">
-      <span class="quiz-num">D</span>
-      <span>巾木（はばき）</span>
-    </div>
-  </div>
-
-  <button class="btn btn-secondary mt-20" id="quiz-submit-btn" onclick="submitQuiz()" style="display: none;">回答する</button>
-
-  <!-- Result (shown after answer) -->
-  <div id="quiz-result" style="display: none;">
-    <div class="card result-correct" style="background: #D4EDDA; border: 2px solid var(--success); text-align: center; padding: 20px;">
-      <div style="font-size: 36px;">🎉</div>
-      <div class="font-bold text-lg" style="color: var(--success);">正解！</div>
-    </div>
-
-    <div class="card mt-12" style="background: var(--gray-50);">
-      <div class="font-bold text-sm mb-8">💡 解説</div>
-      <p class="text-sm text-light">
-        巾木（はばき）は、壁と床の接合部分に取り付ける部材です。壁の下端を保護し、掃除機などによる衝撃から壁面を守る役割があります。
-        また、壁と床の隙間を隠す化粧材としての役割もあります。
-      </p>
-      <div class="divider"></div>
-      <p class="text-xs text-light">
-        <strong>鴨居</strong>は引き戸の上部の横木、<strong>敷居</strong>は下部の横木、<strong>廻り縁</strong>は天井と壁の接合部に取り付ける部材です。
-      </p>
-    </div>
-
-    <button class="btn btn-primary mt-20">次の問題へ →</button>
-  </div>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SCREEN 7: 動画一覧画面 -->
-<!-- ============================================ -->
-<section class="screen" id="screen-video-list">
-<div class="screen-label">SCREEN 7 ─ 動画一覧</div>
-
-<div class="header">
-  <div class="header-left">
-    <span class="header-back">←</span>
-    <h1>🎬 動画講座</h1>
-  </div>
-</div>
-
-<div class="tabs">
-  <div class="tab active">すべて</div>
-  <div class="tab">内装</div>
-  <div class="tab">塗装</div>
-  <div class="tab">建材</div>
-</div>
-
-<div class="p-20">
-  <!-- Video 1 -->
-  <div class="card card-hover mb-12">
-    <div class="thumb mb-8" style="background: linear-gradient(135deg, #2D6A4F, #40916C);">
-      <div style="text-align: center; color: white;">
-        <div style="font-size: 36px;">▶️</div>
-        <div class="text-xs" style="margin-top: 4px;">壁紙の貼り方 基礎講座</div>
-      </div>
-      <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.7); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">12:30</div>
-    </div>
-    <div class="flex-between">
-      <div>
-        <div class="font-bold text-sm">壁紙の貼り方 基礎講座</div>
-        <div class="text-xs text-light">内装 ・ 初級</div>
-      </div>
-      <div class="flex gap-8" style="align-items: center;">
-        <span class="tag tag-free">無料</span>
-        <span class="fav-icon active">♥</span>
-      </div>
-    </div>
-    <div style="margin-top: 6px;">
-      <span class="tag tag-done" style="font-size: 10px;">✅ 視聴済み</span>
-    </div>
-  </div>
-
-  <!-- Video 2 -->
-  <div class="card card-hover mb-12">
-    <div class="thumb mb-8" style="background: linear-gradient(135deg, #457B9D, #6BA3BE);">
-      <div style="text-align: center; color: white;">
-        <div style="font-size: 36px;">▶️</div>
-        <div class="text-xs" style="margin-top: 4px;">パテ処理の基本テクニック</div>
-      </div>
-      <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.7); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">18:45</div>
-    </div>
-    <div class="flex-between">
-      <div>
-        <div class="font-bold text-sm">パテ処理の基本テクニック</div>
-        <div class="text-xs text-light">塗装 ・ 中級</div>
-      </div>
-      <div class="flex gap-8" style="align-items: center;">
-        <span class="tag tag-free">無料</span>
-        <span class="fav-icon">♡</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Video 3 -->
-  <div class="card card-hover mb-12">
-    <div class="thumb mb-8" style="background: linear-gradient(135deg, #BC4749, #D06A6C);">
-      <div style="text-align: center; color: white;">
-        <div style="font-size: 36px;">▶️</div>
-        <div class="text-xs" style="margin-top: 4px;">フローリング補修 プロの技</div>
-      </div>
-      <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.7); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">25:10</div>
-    </div>
-    <div class="flex-between">
-      <div>
-        <div class="font-bold text-sm">フローリング補修 プロの技</div>
-        <div class="text-xs text-light">建材知識 ・ 上級</div>
-      </div>
-      <div class="flex gap-8" style="align-items: center;">
-        <span class="tag tag-premium">有料</span>
-        <span class="fav-icon">♡</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Video 4 - Locked -->
-  <div class="card card-hover mb-12" style="opacity: 0.7;">
-    <div class="thumb mb-8" style="background: var(--gray-200);">
-      <div class="lock-overlay">🔒</div>
-    </div>
-    <div class="flex-between">
-      <div>
-        <div class="font-bold text-sm">塗装の色合わせテクニック</div>
-        <div class="text-xs text-light">塗装 ・ 上級</div>
-      </div>
-      <div class="flex gap-8" style="align-items: center;">
-        <span class="tag tag-premium">有料</span>
-        <span class="fav-icon">♡</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="bottom-nav">
-  <a class="bottom-nav-item"><span class="nav-icon">🏠</span>ホーム</a>
-  <a class="bottom-nav-item active"><span class="nav-icon">📂</span>ジャンル</a>
-  <a class="bottom-nav-item"><span class="nav-icon">⭐</span>お気に入り</a>
-  <a class="bottom-nav-item"><span class="nav-icon">📊</span>記録</a>
-  <a class="bottom-nav-item"><span class="nav-icon">👤</span>マイページ</a>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SCREEN 8: 動画視聴画面 -->
-<!-- ============================================ -->
-<section class="screen" id="screen-video-player">
-<div class="screen-label">SCREEN 8 ─ 動画視聴</div>
-
-<div class="header">
-  <div class="header-left">
-    <span class="header-back">←</span>
-    <h1>動画視聴</h1>
-  </div>
-  <span class="fav-icon active" style="color: white; font-size: 20px;">♥</span>
-</div>
-
-<!-- Video Player -->
-<div style="background: #000; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; position: relative;">
-  <div style="text-align: center; color: white;">
-    <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto;">▶</div>
-    <div class="text-xs" style="margin-top: 8px; opacity: 0.7;">タップして再生</div>
-  </div>
-  <!-- Progress bar -->
-  <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: rgba(255,255,255,0.2);">
-    <div style="width: 35%; height: 100%; background: var(--accent);"></div>
-  </div>
-</div>
-
-<div class="p-20">
-  <div class="flex-between mb-8">
-    <span class="tag tag-free">無料</span>
-    <span class="text-xs text-light">再生時間: 12:30</span>
-  </div>
-  <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">壁紙の貼り方 基礎講座</h2>
-  <div class="text-xs text-light mb-16">内装 ・ 初級 ・ 2024年3月公開</div>
-
-  <p class="text-sm text-light mb-16">
-    この動画では、壁紙（クロス）の基本的な貼り方を解説します。道具の準備から、のり付け、位置合わせ、仕上げまで、初心者の方にもわかりやすくステップバイステップで説明します。
-  </p>
-
-  <div class="divider"></div>
-
-  <div class="section-title"><span class="icon">📺</span> 次の動画</div>
-  <div class="card card-hover" style="display: flex; gap: 12px; align-items: center;">
-    <div class="thumb-sm" style="background: linear-gradient(135deg, #457B9D, #6BA3BE); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">▶</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">パテ処理の基本テクニック</div>
-      <div class="text-xs text-light">塗装 ・ 18:45</div>
-    </div>
-    <span class="tag tag-free" style="font-size: 10px;">無料</span>
-  </div>
-
-  <!-- Locked video example -->
-  <div class="card" style="display: flex; gap: 12px; align-items: center; opacity: 0.6;">
-    <div class="thumb-sm" style="background: var(--gray-200); display: flex; align-items: center; justify-content: center; position: relative;">
-      <span>🔒</span>
-    </div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">プロの壁紙仕上げテクニック</div>
-      <div class="text-xs text-light">内装 ・ 20:15</div>
-    </div>
-    <span class="tag tag-premium" style="font-size: 10px;">有料</span>
-  </div>
-
-  <div class="banner banner-accent mt-20" style="text-align: center;">
-    <div style="font-size: 20px; margin-bottom: 4px;">👑</div>
-    <div class="font-bold text-sm">有料プランですべての動画が見放題</div>
-    <button class="btn btn-sm" style="background: white; color: var(--accent-dark); margin-top: 8px; width: auto; display: inline-flex;">詳しく見る</button>
-  </div>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SCREEN 9: お気に入り一覧画面 -->
-<!-- ============================================ -->
-<section class="screen" id="screen-favorites">
-<div class="screen-label">SCREEN 9 ─ お気に入り一覧</div>
-
-<div class="header">
-  <h1>⭐ お気に入り</h1>
-</div>
-
-<div class="tabs">
-  <div class="tab active" onclick="switchFavTab('quiz')">🧩 クイズ</div>
-  <div class="tab" onclick="switchFavTab('video')">🎬 動画</div>
-</div>
-
-<div class="p-20" id="fav-quiz">
-  <div class="card card-hover" style="display: flex; gap: 12px; align-items: center;">
-    <div style="width: 40px; height: 40px; background: var(--primary-pale); border-radius: 8px; display: flex; align-items: center; justify-content: center;">🧩</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">壁紙（クロス）の種類を答えよう</div>
-      <div class="text-xs text-light">内装 ・ 初級</div>
-    </div>
-    <span class="fav-icon active">♥</span>
-  </div>
-
-  <div class="card card-hover" style="display: flex; gap: 12px; align-items: center;">
-    <div style="width: 40px; height: 40px; background: #FFF3CD; border-radius: 8px; display: flex; align-items: center; justify-content: center;">🧩</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">塗料の種類と特徴</div>
-      <div class="text-xs text-light">塗装 ・ 中級</div>
-    </div>
-    <span class="fav-icon active">♥</span>
-  </div>
-
-  <div class="card card-hover" style="display: flex; gap: 12px; align-items: center;">
-    <div style="width: 40px; height: 40px; background: var(--primary-pale); border-radius: 8px; display: flex; align-items: center; justify-content: center;">🧩</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">電動ドリルの正しい使い方</div>
-      <div class="text-xs text-light">道具 ・ 初級</div>
-    </div>
-    <span class="fav-icon active">♥</span>
-  </div>
-</div>
-
-<div class="p-20" id="fav-video" style="display: none;">
-  <div class="card card-hover" style="display: flex; gap: 12px; align-items: center;">
-    <div class="thumb-sm" style="background: linear-gradient(135deg, #2D6A4F, #40916C); display: flex; align-items: center; justify-content: center; color: white; font-size: 14px;">▶</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">壁紙の貼り方 基礎講座</div>
-      <div class="text-xs text-light">内装 ・ 12:30</div>
-    </div>
-    <span class="fav-icon active">♥</span>
-  </div>
-
-  <div class="card card-hover" style="display: flex; gap: 12px; align-items: center;">
-    <div class="thumb-sm" style="background: linear-gradient(135deg, #457B9D, #6BA3BE); display: flex; align-items: center; justify-content: center; color: white; font-size: 14px;">▶</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">サンダーの使い方と選び方</div>
-      <div class="text-xs text-light">道具 ・ 15:20</div>
-    </div>
-    <span class="fav-icon active">♥</span>
-  </div>
-</div>
-
-<div class="bottom-nav">
-  <a class="bottom-nav-item"><span class="nav-icon">🏠</span>ホーム</a>
-  <a class="bottom-nav-item"><span class="nav-icon">📂</span>ジャンル</a>
-  <a class="bottom-nav-item active"><span class="nav-icon">⭐</span>お気に入り</a>
-  <a class="bottom-nav-item"><span class="nav-icon">📊</span>記録</a>
-  <a class="bottom-nav-item"><span class="nav-icon">👤</span>マイページ</a>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SCREEN 10: 学習記録 / マイページ -->
-<!-- ============================================ -->
-<section class="screen" id="screen-mypage">
-<div class="screen-label">SCREEN 10 ─ 学習記録 / マイページ</div>
-
-<div class="header">
-  <h1>👤 マイページ</h1>
-</div>
-
-<div class="p-20">
-  <!-- Profile -->
-  <div class="text-center mb-20">
-    <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 8px;">山</div>
-    <div class="font-bold">山田 太郎</div>
-    <div class="text-xs text-light">yamada@example.com</div>
-    <div style="margin-top: 8px;"><span class="tag tag-free">無料会員</span></div>
-  </div>
-
-  <!-- Streak -->
-  <div class="card" style="background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; text-align: center;">
-    <div style="font-size: 20px;">🔥</div>
-    <div class="text-2xl font-bold">7日連続学習中</div>
-    <div class="text-xs" style="opacity: 0.8;">最長記録: 14日</div>
-  </div>
-
-  <!-- Stats -->
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px;">
-    <div class="stat-card">
-      <div class="stat-num">48</div>
-      <div class="stat-label">解いた問題</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">12</div>
-      <div class="stat-label">視聴した動画</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" style="color: var(--accent);">7</div>
-      <div class="stat-label">連続日数</div>
-    </div>
-  </div>
-
-  <!-- Genre Progress -->
-  <div class="section-title mt-20"><span class="icon">📊</span> ジャンル別進捗</div>
-
-  <div class="card mb-8">
-    <div class="flex-between mb-8">
-      <span class="font-bold text-sm">🏠 内装</span>
-      <span class="text-xs text-light">30%</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" style="width: 30%;"></div></div>
-  </div>
-  <div class="card mb-8">
-    <div class="flex-between mb-8">
-      <span class="font-bold text-sm">🎨 塗装</span>
-      <span class="text-xs text-light">55%</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" style="width: 55%;"></div></div>
-  </div>
-  <div class="card mb-8">
-    <div class="flex-between mb-8">
-      <span class="font-bold text-sm">🪵 建材知識</span>
-      <span class="text-xs text-light">10%</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" style="width: 10%;"></div></div>
-  </div>
-  <div class="card mb-8">
-    <div class="flex-between mb-8">
-      <span class="font-bold text-sm">🔧 道具</span>
-      <span class="text-xs text-light">0%</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
-  </div>
-  <div class="card mb-8">
-    <div class="flex-between mb-8">
-      <span class="font-bold text-sm">🏗️ 施工基礎</span>
-      <span class="text-xs text-light">20%</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" style="width: 20%;"></div></div>
-  </div>
-
-  <!-- Plan -->
-  <div class="divider"></div>
-  <div class="section-title"><span class="icon">💳</span> 契約状況</div>
-  <div class="card flex-between">
-    <div>
-      <div class="font-bold text-sm">無料プラン</div>
-      <div class="text-xs text-light">基本コンテンツのみ利用可能</div>
-    </div>
-    <button class="btn btn-primary btn-sm" style="width: auto;">プラン変更</button>
-  </div>
-
-  <div class="divider"></div>
-  <button class="btn btn-outline" style="color: var(--danger); border-color: var(--danger);">ログアウト</button>
-</div>
-
-<div class="bottom-nav">
-  <a class="bottom-nav-item"><span class="nav-icon">🏠</span>ホーム</a>
-  <a class="bottom-nav-item"><span class="nav-icon">📂</span>ジャンル</a>
-  <a class="bottom-nav-item"><span class="nav-icon">⭐</span>お気に入り</a>
-  <a class="bottom-nav-item"><span class="nav-icon">📊</span>記録</a>
-  <a class="bottom-nav-item active"><span class="nav-icon">👤</span>マイページ</a>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SCREEN 11: 有料プラン登録画面 -->
-<!-- ============================================ -->
-<section class="screen" id="screen-pricing">
-<div class="screen-label">SCREEN 11 ─ 有料プラン登録 / 決済導線</div>
-
-<div class="header">
-  <div class="header-left">
-    <span class="header-back">←</span>
-    <h1>プラン選択</h1>
-  </div>
-</div>
-
-<div class="p-20">
-  <div class="text-center mb-24">
-    <div style="font-size: 40px;">👑</div>
-    <h2 style="font-size: 22px; margin-bottom: 8px;">すべてのコンテンツを<br>解放しよう</h2>
-    <p class="text-sm text-light">プロの技術を余すことなく学べます</p>
-  </div>
-
-  <!-- Comparison -->
-  <div class="card mb-16">
-    <div class="font-bold text-sm mb-12 text-center">無料プランでできること</div>
-    <div class="text-sm">
-      <div style="padding: 6px 0; border-bottom: 1px solid var(--gray-100);">✅ 基礎クイズ 30問</div>
-      <div style="padding: 6px 0; border-bottom: 1px solid var(--gray-100);">✅ 入門動画 5本</div>
-      <div style="padding: 6px 0; border-bottom: 1px solid var(--gray-100);">✅ 学習進捗の記録</div>
-      <div style="padding: 6px 0; border-bottom: 1px solid var(--gray-100); color: var(--gray-400);">❌ 応用・実践クイズ 170問以上</div>
-      <div style="padding: 6px 0; border-bottom: 1px solid var(--gray-100); color: var(--gray-400);">❌ プロ向け動画 45本以上</div>
-      <div style="padding: 6px 0; color: var(--gray-400);">❌ 新コンテンツ優先公開</div>
-    </div>
-  </div>
-
-  <!-- Plan card -->
-  <div class="price-card recommended mb-20" style="margin-top: 24px;">
-    <div class="font-bold mb-8">有料プラン</div>
-    <div class="price-amount">¥1,980</div>
-    <div class="price-period mb-12">/ 月（税込）</div>
-    <div class="text-sm mb-16">
-      <div style="padding: 4px 0;">✅ すべてのクイズ問題（200問以上）</div>
-      <div style="padding: 4px 0;">✅ すべての動画講座（50本以上）</div>
-      <div style="padding: 4px 0;">✅ お気に入り無制限保存</div>
-      <div style="padding: 4px 0;">✅ 新コンテンツ優先公開</div>
-      <div style="padding: 4px 0;">✅ いつでも解約可能</div>
-    </div>
-    <button class="btn btn-primary">クレジットカードで申し込む</button>
-    <div class="text-xs text-light text-center mt-12">初月から即時利用可能・いつでも解約OK</div>
-  </div>
-
-  <!-- FAQ -->
-  <div class="section-title"><span class="icon">❓</span> よくある質問</div>
-
-  <div class="faq-item">
-    <div class="faq-q">Q. いつでも解約できますか？</div>
-    <div class="faq-a">はい、マイページからいつでも解約可能です。次回更新日まではそのままご利用いただけます。</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q">Q. 支払い方法は何がありますか？</div>
-    <div class="faq-a">クレジットカード（Visa, Mastercard, JCB, AMEX）に対応しています。</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q">Q. 有料プランの内容は増えますか？</div>
-    <div class="faq-a">はい、毎月新しいクイズや動画を追加予定です。有料会員は追加コンテンツも追加料金なしで利用できます。</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q">Q. 無料プランに戻せますか？</div>
-    <div class="faq-a">解約すると次回更新日以降は自動的に無料プランに戻ります。学習記録はそのまま保持されます。</div>
-  </div>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SCREEN 12: 管理画面トップ -->
-<!-- ============================================ -->
-<section class="screen" id="screen-admin">
-<div class="screen-label">SCREEN 12 ─ 管理画面トップ</div>
-
-<div class="header admin-header">
-  <h1>⚙️ 管理画面</h1>
-  <div class="header-icon">👤</div>
-</div>
-
-<div class="p-20">
-  <div class="text-sm text-light mb-16">Dr.直し屋ラーニング 管理システム</div>
-
-  <!-- Stats -->
-  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;">
-    <div class="stat-card" style="border-left: 3px solid var(--primary);">
-      <div class="stat-num">210</div>
-      <div class="stat-label">登録問題数</div>
-    </div>
-    <div class="stat-card" style="border-left: 3px solid var(--info);">
-      <div class="stat-num">56</div>
-      <div class="stat-label">登録動画数</div>
-    </div>
-    <div class="stat-card" style="border-left: 3px solid var(--accent);">
-      <div class="stat-num">1,248</div>
-      <div class="stat-label">登録ユーザー</div>
-    </div>
-    <div class="stat-card" style="border-left: 3px solid var(--success);">
-      <div class="stat-num">342</div>
-      <div class="stat-label">有料会員数</div>
-    </div>
-  </div>
-
-  <!-- Menu -->
-  <div class="section-title"><span class="icon">📋</span> メニュー</div>
-
-  <div class="card card-hover admin-card" style="display: flex; gap: 14px; align-items: center;">
-    <div class="feature-icon" style="background: var(--primary-pale);">🧩</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">問題管理</div>
-      <div class="text-xs text-light">クイズ問題の追加・編集・削除</div>
-    </div>
-    <span style="color: var(--gray-400);">→</span>
-  </div>
-
-  <div class="card card-hover admin-card" style="display: flex; gap: 14px; align-items: center;">
-    <div class="feature-icon" style="background: #D6EAF8;">🎬</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">動画管理</div>
-      <div class="text-xs text-light">動画コンテンツの追加・編集</div>
-    </div>
-    <span style="color: var(--gray-400);">→</span>
-  </div>
-
-  <div class="card card-hover admin-card" style="display: flex; gap: 14px; align-items: center;">
-    <div class="feature-icon" style="background: #FFF3CD;">👥</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">ユーザー管理</div>
-      <div class="text-xs text-light">会員情報の確認・管理</div>
-    </div>
-    <span style="color: var(--gray-400);">→</span>
-  </div>
-
-  <div class="card card-hover admin-card" style="display: flex; gap: 14px; align-items: center;">
-    <div class="feature-icon" style="background: #E8DAEF;">📥</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">CSVインポート</div>
-      <div class="text-xs text-light">問題の一括登録</div>
-    </div>
-    <span style="color: var(--gray-400);">→</span>
-  </div>
-
-  <div class="card card-hover admin-card" style="display: flex; gap: 14px; align-items: center;">
-    <div class="feature-icon" style="background: #D4EDDA;">📊</div>
-    <div style="flex: 1;">
-      <div class="font-bold text-sm">学習データ確認</div>
-      <div class="text-xs text-light">ユーザーの学習状況分析</div>
-    </div>
-    <span style="color: var(--gray-400);">→</span>
-  </div>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SCREEN 13: 問題管理画面 -->
-<!-- ============================================ -->
-<section class="screen" id="screen-admin-questions">
-<div class="screen-label">SCREEN 13 ─ 問題管理（管理画面）</div>
-
-<div class="header admin-header">
-  <div class="header-left">
-    <span class="header-back">←</span>
-    <h1>問題管理</h1>
-  </div>
-  <button class="btn btn-sm btn-primary" style="width: auto; padding: 6px 14px; font-size: 12px;">＋ 新規追加</button>
-</div>
-
-<div style="padding: 12px 20px; background: var(--gray-50); display: flex; gap: 8px; flex-wrap: wrap;">
-  <select class="input-field" style="flex: 1; min-width: 100px; padding: 8px 30px 8px 10px; font-size: 12px;">
-    <option>全ジャンル</option>
-    <option>内装</option>
-    <option>塗装</option>
-    <option>建材知識</option>
-    <option>道具</option>
-    <option>施工基礎</option>
-  </select>
-  <select class="input-field" style="flex: 1; min-width: 80px; padding: 8px 30px 8px 10px; font-size: 12px;">
-    <option>すべて</option>
-    <option>無料</option>
-    <option>有料</option>
-  </select>
-  <button class="btn btn-sm btn-outline" style="width: auto; padding: 8px 14px; font-size: 12px;">📥 CSV一括登録</button>
-</div>
-
-<div class="px-20 py-12">
-  <div class="text-xs text-light mb-8">全 210 件</div>
-
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>問題文</th>
-          <th>ジャンル</th>
-          <th>公開</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>001</td>
-          <td style="max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">壁紙の種類を答えよう</td>
-          <td><span class="tag tag-difficulty">内装</span></td>
-          <td><span class="tag tag-free">無料</span></td>
-          <td>
-            <span style="cursor: pointer; margin-right: 6px;">✏️</span>
-            <span style="cursor: pointer; color: var(--danger);">🗑️</span>
-          </td>
-        </tr>
-        <tr>
-          <td>002</td>
-          <td style="max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">フローリングの工法</td>
-          <td><span class="tag tag-difficulty">内装</span></td>
-          <td><span class="tag tag-free">無料</span></td>
-          <td>
-            <span style="cursor: pointer; margin-right: 6px;">✏️</span>
-            <span style="cursor: pointer; color: var(--danger);">🗑️</span>
-          </td>
-        </tr>
-        <tr>
-          <td>003</td>
-          <td style="max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">この部位の名称は？</td>
-          <td><span class="tag tag-difficulty">内装</span></td>
-          <td><span class="tag tag-free">無料</span></td>
-          <td>
-            <span style="cursor: pointer; margin-right: 6px;">✏️</span>
-            <span style="cursor: pointer; color: var(--danger);">🗑️</span>
-          </td>
-        </tr>
-        <tr>
-          <td>004</td>
-          <td style="max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">塗料の下地処理で正しいのは</td>
-          <td><span class="tag tag-difficulty">塗装</span></td>
-          <td><span class="tag tag-premium">有料</span></td>
-          <td>
-            <span style="cursor: pointer; margin-right: 6px;">✏️</span>
-            <span style="cursor: pointer; color: var(--danger);">🗑️</span>
-          </td>
-        </tr>
-        <tr>
-          <td>005</td>
-          <td style="max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">合板の種類として正しいのは</td>
-          <td><span class="tag tag-difficulty">建材</span></td>
-          <td><span class="tag tag-premium">有料</span></td>
-          <td>
-            <span style="cursor: pointer; margin-right: 6px;">✏️</span>
-            <span style="cursor: pointer; color: var(--danger);">🗑️</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Pagination -->
-  <div class="flex-center gap-8 mt-20">
-    <button class="btn btn-sm btn-outline" style="width: auto; opacity: 0.5;">← 前へ</button>
-    <span class="text-sm">1 / 42 ページ</span>
-    <button class="btn btn-sm btn-outline" style="width: auto;">次へ →</button>
-  </div>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SCREEN 14: 問題登録 / 編集画面 -->
-<!-- ============================================ -->
-<section class="screen" id="screen-admin-edit">
-<div class="screen-label">SCREEN 14 ─ 問題登録 / 編集</div>
-
-<div class="header admin-header">
-  <div class="header-left">
-    <span class="header-back">←</span>
-    <h1>問題登録</h1>
-  </div>
-  <button class="btn btn-sm btn-primary" style="width: auto; padding: 6px 14px; font-size: 12px;">保存</button>
-</div>
-
-<div class="p-20">
-  <div class="input-group">
-    <label>ジャンル</label>
-    <select class="input-field">
-      <option>内装</option>
-      <option>塗装</option>
-      <option>建材知識</option>
-      <option>道具</option>
-      <option>施工基礎</option>
-    </select>
-  </div>
-
-  <div class="input-group">
-    <label>難易度</label>
-    <select class="input-field">
-      <option>初級</option>
-      <option>中級</option>
-      <option>上級</option>
-    </select>
-  </div>
-
-  <div class="input-group">
-    <label>公開設定</label>
-    <select class="input-field">
-      <option>無料公開</option>
-      <option>有料限定</option>
-    </select>
-  </div>
-
-  <div class="input-group">
-    <label>問題文</label>
-    <textarea class="input-field" placeholder="問題文を入力してください">この部位の名称として最も適切なものは？</textarea>
-  </div>
-
-  <div class="input-group">
-    <label>画像（任意）</label>
-    <div class="upload-area">
-      <div style="font-size: 28px; margin-bottom: 8px;">📷</div>
-      <div class="text-sm">画像をドラッグ＆ドロップ</div>
-      <div class="text-xs text-light">またはクリックして選択（JPG, PNG）</div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="input-group">
-    <label>選択肢A</label>
-    <div style="display: flex; gap: 8px; align-items: center;">
-      <input type="radio" name="correct" checked>
-      <input class="input-field" value="巾木（はばき）" style="flex: 1;">
-    </div>
-    <div class="text-xs text-light mt-12">⬆ 正解</div>
-  </div>
-
-  <div class="input-group">
-    <label>選択肢B</label>
-    <div style="display: flex; gap: 8px; align-items: center;">
-      <input type="radio" name="correct">
-      <input class="input-field" value="鴨居（かもい）" style="flex: 1;">
-    </div>
-  </div>
-
-  <div class="input-group">
-    <label>選択肢C</label>
-    <div style="display: flex; gap: 8px; align-items: center;">
-      <input type="radio" name="correct">
-      <input class="input-field" value="敷居（しきい）" style="flex: 1;">
-    </div>
-  </div>
-
-  <div class="input-group">
-    <label>選択肢D</label>
-    <div style="display: flex; gap: 8px; align-items: center;">
-      <input type="radio" name="correct">
-      <input class="input-field" value="廻り縁（まわりぶち）" style="flex: 1;">
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="input-group">
-    <label>解説</label>
-    <textarea class="input-field" placeholder="正解の解説を入力してください">巾木（はばき）は、壁と床の接合部分に取り付ける部材です。壁の下端を保護し、掃除機などによる衝撃から壁面を守る役割があります。</textarea>
-  </div>
-
-  <button class="btn btn-secondary mb-12">この内容で保存する</button>
-  <button class="btn btn-outline">キャンセル</button>
-</div>
-</section>
-
-<!-- ============================================ -->
-<!-- SCREEN 15: CSVインポート画面 -->
-<!-- ============================================ -->
-<section class="screen" id="screen-csv">
-<div class="screen-label">SCREEN 15 ─ CSVインポート</div>
-
-<div class="header admin-header">
-  <div class="header-left">
-    <span class="header-back">←</span>
-    <h1>CSVインポート</h1>
-  </div>
-</div>
-
-<div class="p-20">
-  <div class="section-title"><span class="icon">📥</span> CSVファイルをアップロード</div>
-
-  <div class="upload-area mb-20">
-    <div style="font-size: 36px; margin-bottom: 8px;">📄</div>
-    <div class="font-bold text-sm">CSVファイルをドラッグ＆ドロップ</div>
-    <div class="text-xs text-light mb-12">またはクリックしてファイルを選択</div>
-    <button class="btn btn-sm btn-outline" style="width: auto; display: inline-flex;">ファイルを選択</button>
-  </div>
-
-  <!-- Sample format -->
-  <div class="section-title"><span class="icon">📋</span> CSVフォーマット</div>
-  <div class="card" style="background: var(--gray-50); overflow-x: auto;">
-    <div class="text-xs" style="font-family: monospace; white-space: pre; line-height: 1.8;">genre,difficulty,access,question,choice_a,choice_b,choice_c,choice_d,answer,explanation
-内装,初級,無料,壁紙の種類は？,ビニール,布,紙,すべて正解,D,壁紙には複数の素材があります
-塗装,中級,有料,下地処理で重要なのは？,脱脂,研磨,パテ埋め,すべて重要,D,下地処理は塗装品質を左右します</div>
-  </div>
-
-  <button class="btn btn-sm btn-outline mt-12 mb-20" style="width: auto; display: inline-flex;">📥 サンプルCSVをダウンロード</button>
-
-  <!-- Import result -->
-  <div class="section-title"><span class="icon">✅</span> インポート結果</div>
-
-  <div class="card" style="border-left: 4px solid var(--success);">
-    <div class="font-bold text-sm" style="color: var(--success);">✅ 成功: 18件</div>
-    <div class="text-xs text-light mt-12">正常にインポートされた問題数</div>
-  </div>
-
-  <div class="card" style="border-left: 4px solid var(--danger);">
-    <div class="font-bold text-sm" style="color: var(--danger);">❌ エラー: 2件</div>
-    <div class="text-xs text-light mt-12">以下の行にエラーがあります</div>
-    <div style="margin-top: 8px; background: #FFF3F3; border-radius: var(--radius-sm); padding: 10px; font-size: 12px;">
-      <div style="margin-bottom: 4px;"><strong>行 5:</strong> 正解の選択肢が未指定です</div>
-      <div><strong>行 12:</strong> ジャンル「電気」は未登録のジャンルです</div>
-    </div>
-  </div>
-
-  <button class="btn btn-secondary mt-20">インポートを実行</button>
-</div>
-</section>
-
-<!-- JavaScript -->
-<script>
-// Auth tab switching
-function switchAuthTab(tab) {
-  const tabs = document.querySelectorAll('#screen-auth .tab');
-  tabs.forEach((t, i) => {
-    t.classList.toggle('active', (tab === 'login' && i === 0) || (tab === 'register' && i === 1));
-  });
-  document.getElementById('auth-login').style.display = tab === 'login' ? 'block' : 'none';
-  document.getElementById('auth-register').style.display = tab === 'register' ? 'block' : 'none';
-}
-
-// Favorite tab switching
-function switchFavTab(tab) {
-  const tabs = document.querySelectorAll('#screen-favorites .tab');
-  tabs.forEach((t, i) => {
-    t.classList.toggle('active', (tab === 'quiz' && i === 0) || (tab === 'video' && i === 1));
-  });
-  document.getElementById('fav-quiz').style.display = tab === 'quiz' ? 'block' : 'none';
-  document.getElementById('fav-video').style.display = tab === 'video' ? 'block' : 'none';
-}
-
-// Quiz selection
-let selectedOption = null;
-function selectQuiz(el, isCorrect) {
-  if (document.getElementById('quiz-result').style.display === 'block') return;
-  document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedOption = { el, isCorrect };
-  document.getElementById('quiz-submit-btn').style.display = 'block';
-}
-
-function submitQuiz() {
-  if (!selectedOption) return;
-  const { el, isCorrect } = selectedOption;
-  document.querySelectorAll('.quiz-option').forEach(o => {
-    o.style.pointerEvents = 'none';
-    o.classList.remove('selected');
-  });
-  if (isCorrect) {
-    el.classList.add('correct');
-  } else {
-    el.classList.add('wrong');
-    document.querySelectorAll('.quiz-option')[3].classList.add('correct');
-  }
-  document.getElementById('quiz-submit-btn').style.display = 'none';
-  document.getElementById('quiz-result').style.display = 'block';
-  document.getElementById('quiz-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-</script>
-
 </body>
 </html>

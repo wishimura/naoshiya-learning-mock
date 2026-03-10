@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>内装クイズ - Dr.直し屋ラーニング</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .filter-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .filter-count {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+    .filter-count strong {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .filter-select {
+      padding: 6px 28px 6px 12px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-xs);
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--gray-700);
+      background: var(--white);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748B' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      cursor: pointer;
+    }
+    .quiz-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--gray-100);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .quiz-item:active {
+      background: var(--gray-50);
+    }
+    .quiz-item-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .quiz-item-icon.done {
+      background: #DCFCE7;
+    }
+    .quiz-item-icon.todo {
+      background: var(--primary-pale);
+    }
+    .quiz-item-icon.locked {
+      background: var(--gray-100);
+    }
+    .quiz-item-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .quiz-item-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-800);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .quiz-item-tags {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .quiz-item-fav {
+      flex-shrink: 0;
+      padding: 4px;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="app-body">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <a href="genres.html" class="header-back">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </a>
+        <h1>内装クイズ</h1>
+      </div>
+    </header>
+
+    <!-- Filter Row -->
+    <div class="filter-row">
+      <div class="filter-count">全<strong>42</strong>問・<strong>12</strong>問学習済み</div>
+      <select class="filter-select">
+        <option>すべて</option>
+        <option>未学習</option>
+        <option>学習済み</option>
+      </select>
+    </div>
+
+    <!-- Quiz Items -->
+
+    <!-- Item 1: Done + Fav On -->
+    <a href="quiz.html" class="quiz-item">
+      <div class="quiz-item-icon done">✅</div>
+      <div class="quiz-item-body">
+        <div class="quiz-item-title">壁紙（クロス）の種類を答えよう</div>
+        <div class="quiz-item-tags">
+          <span class="tag tag-level">初級</span>
+          <span class="tag tag-free">無料</span>
+          <span class="tag tag-done">学習済み</span>
+        </div>
+      </div>
+      <div class="quiz-item-fav">
+        <span class="fav on">♥</span>
+      </div>
+    </a>
+
+    <!-- Item 2: Done -->
+    <a href="quiz.html" class="quiz-item">
+      <div class="quiz-item-icon done">✅</div>
+      <div class="quiz-item-body">
+        <div class="quiz-item-title">フローリングの工法を選べ</div>
+        <div class="quiz-item-tags">
+          <span class="tag tag-level">初級</span>
+          <span class="tag tag-free">無料</span>
+          <span class="tag tag-done">学習済み</span>
+        </div>
+      </div>
+      <div class="quiz-item-fav">
+        <span class="fav">♡</span>
+      </div>
+    </a>
+
+    <!-- Item 3: Not done + NEW -->
+    <a href="quiz.html" class="quiz-item">
+      <div class="quiz-item-icon todo">📝</div>
+      <div class="quiz-item-body">
+        <div class="quiz-item-title">この部位の名称として最も適切なものは？</div>
+        <div class="quiz-item-tags">
+          <span class="tag tag-level">中級</span>
+          <span class="tag tag-free">無料</span>
+          <span class="tag tag-new">NEW</span>
+        </div>
+      </div>
+      <div class="quiz-item-fav">
+        <span class="fav">♡</span>
+      </div>
+    </a>
+
+    <!-- Item 4: Not done + Premium -->
+    <a href="quiz.html" class="quiz-item">
+      <div class="quiz-item-icon todo">📝</div>
+      <div class="quiz-item-body">
+        <div class="quiz-item-title">畳の構造について正しいものは？</div>
+        <div class="quiz-item-tags">
+          <span class="tag tag-level">中級</span>
+          <span class="tag tag-premium">有料</span>
+        </div>
+      </div>
+      <div class="quiz-item-fav">
+        <span class="fav">♡</span>
+      </div>
+    </a>
+
+    <!-- Item 5: Not done + Premium + Advanced -->
+    <a href="quiz.html" class="quiz-item">
+      <div class="quiz-item-icon todo">📝</div>
+      <div class="quiz-item-body">
+        <div class="quiz-item-title">ドア枠の調整方法として適切なのは？</div>
+        <div class="quiz-item-tags">
+          <span class="tag tag-level">上級</span>
+          <span class="tag tag-premium">有料</span>
+        </div>
+      </div>
+      <div class="quiz-item-fav">
+        <span class="fav">♡</span>
+      </div>
+    </a>
+
+    <!-- Item 6: Locked -->
+    <a href="quiz.html" class="quiz-item opacity-60" style="pointer-events: auto;">
+      <div class="quiz-item-icon locked">🔒</div>
+      <div class="quiz-item-body">
+        <div class="quiz-item-title">天井補修の手順を正しく並べよ</div>
+        <div class="quiz-item-tags">
+          <span class="tag tag-level">上級</span>
+          <span class="tag tag-premium">有料</span>
+        </div>
+      </div>
+      <div class="quiz-item-fav">
+        <span class="fav">♡</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="home.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>ホーム</span></a>
+    <a href="genres.html" class="nav-item active"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>ジャンル</span></a>
+    <a href="favorites.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>お気に入り</span></a>
+    <a href="mypage.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>マイページ</span></a>
+  </nav>
+</div>
+</body>
+</html>

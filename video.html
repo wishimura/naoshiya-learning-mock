@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>動画視聴 - Dr.直し屋ラーニング</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .video-player {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+    }
+    .video-player-btn {
+      width: 64px;
+      height: 64px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(255,255,255,0.4);
+      margin-bottom: 8px;
+      transition: background 0.2s;
+    }
+    .video-player:hover .video-player-btn {
+      background: rgba(255,255,255,0.25);
+    }
+    .video-player-btn svg {
+      width: 28px;
+      height: 28px;
+      fill: white;
+      margin-left: 3px;
+    }
+    .video-player-text {
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+    }
+    .video-player-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: rgba(255,255,255,0.2);
+    }
+    .video-player-progress-fill {
+      height: 100%;
+      background: var(--accent);
+      width: 35%;
+      transition: width 0.4s;
+    }
+    .video-detail {
+      padding: 20px;
+    }
+    .video-detail-tag-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .video-detail-duration {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    .video-detail-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--gray-800);
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+    .video-detail-meta {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+    .video-detail-desc {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.8;
+    }
+    .upgrade-banner {
+      margin: 0 20px 24px;
+      background: linear-gradient(135deg, var(--accent), #F97316);
+      color: var(--white);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+    }
+    .upgrade-banner-emoji {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .upgrade-banner-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .upgrade-banner .btn-white {
+      display: inline-flex;
+      padding: 10px 28px;
+      width: auto;
+      font-size: 14px;
+      border-radius: var(--radius-sm);
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="app-body">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <a href="videos.html" class="header-back">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </a>
+        <h1>動画視聴</h1>
+      </div>
+      <span class="fav on" id="headerFav" style="font-size: 20px; cursor: pointer;">♥</span>
+    </header>
+
+    <!-- Video Player -->
+    <div class="video-player">
+      <div class="video-player-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="8,5 20,12 8,19"/></svg>
+      </div>
+      <div class="video-player-text">タップして再生</div>
+      <div class="video-player-progress">
+        <div class="video-player-progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- Video Detail -->
+    <div class="video-detail">
+      <!-- Tag + Duration row -->
+      <div class="video-detail-tag-row">
+        <span class="tag tag-free">無料</span>
+        <span class="video-detail-duration">再生時間: 12:30</span>
+      </div>
+
+      <!-- Title -->
+      <h2 class="video-detail-title">壁紙の貼り方 基礎講座</h2>
+
+      <!-- Meta -->
+      <div class="video-detail-meta">内装・初級・2024年3月公開</div>
+
+      <!-- Description -->
+      <p class="video-detail-desc">
+        壁紙（クロス）の基本的な貼り方を、プロの職人がわかりやすく解説します。道具の準備から下地処理、糊付け、貼り付け、仕上げまでの一連の工程を丁寧に説明。初めての方でも失敗しにくいコツや、きれいに仕上げるためのポイントも紹介しています。
+      </p>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider" style="margin: 0 20px;"></div>
+
+    <!-- Upgrade Banner -->
+    <div style="padding-top: 20px;">
+      <div class="upgrade-banner">
+        <div class="upgrade-banner-emoji">👑</div>
+        <div class="upgrade-banner-title">有料プランですべての動画が見放題</div>
+        <a href="pricing.html" class="btn btn-white btn-sm">詳しく見る</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function() {
+  var headerFav = document.getElementById('headerFav');
+  headerFav.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (headerFav.classList.contains('on')) {
+      headerFav.classList.remove('on');
+      headerFav.textContent = '\u2661';
+    } else {
+      headerFav.classList.add('on');
+      headerFav.textContent = '\u2665';
+    }
+  });
+})();
+</script>
+</body>
+</html>

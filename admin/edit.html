@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>問題登録 - Dr.直し屋ラーニング</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .admin-header {
+      background: #1E293B;
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .admin-header h1 {
+      font-size: 17px;
+      font-weight: 700;
+    }
+    .admin-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .admin-header-left a {
+      color: white;
+      font-size: 18px;
+      display: inline-flex;
+    }
+    .choice-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .choice-row input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+    .choice-row .input-field {
+      flex: 1;
+    }
+    .correct-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--success);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px;
+      padding-top: 8px;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="app-body" style="padding-bottom: 0;">
+
+    <!-- Header -->
+    <div class="admin-header">
+      <div class="admin-header-left">
+        <a href="questions.html">←</a>
+        <h1>問題登録</h1>
+      </div>
+      <button class="btn btn-primary btn-sm" style="width: auto; font-size: 12px; padding: 6px 14px;">保存</button>
+    </div>
+
+    <!-- Form -->
+    <div class="section">
+
+      <!-- Genre -->
+      <div class="input-group">
+        <label>ジャンル</label>
+        <select class="input-field">
+          <option>内装</option>
+          <option>塗装</option>
+          <option>建材知識</option>
+          <option>道具</option>
+          <option>施工基礎</option>
+        </select>
+      </div>
+
+      <!-- Difficulty -->
+      <div class="input-group">
+        <label>難易度</label>
+        <select class="input-field">
+          <option>初級</option>
+          <option>中級</option>
+          <option>上級</option>
+        </select>
+      </div>
+
+      <!-- Access -->
+      <div class="input-group">
+        <label>公開設定</label>
+        <select class="input-field">
+          <option>無料公開</option>
+          <option>有料限定</option>
+        </select>
+      </div>
+
+      <!-- Question Text -->
+      <div class="input-group">
+        <label>問題文</label>
+        <textarea class="input-field" rows="3">この部位の名称として最も適切なものは？</textarea>
+      </div>
+
+      <!-- Image Upload -->
+      <div class="input-group">
+        <label>画像（任意）</label>
+        <div class="upload-area">
+          <div style="font-size: 32px; margin-bottom: 8px;">📷</div>
+          <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">画像をドラッグ＆ドロップ</div>
+          <div style="font-size: 12px; color: var(--text-light);">またはクリックして選択</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Choices -->
+      <div class="input-group">
+        <label>選択肢A</label>
+        <div class="choice-row">
+          <input type="radio" name="answer" checked>
+          <input type="text" class="input-field" value="巾木（はばき）">
+          <span class="correct-label">← 正解</span>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>選択肢B</label>
+        <div class="choice-row">
+          <input type="radio" name="answer">
+          <input type="text" class="input-field" value="鴨居（かもい）">
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>選択肢C</label>
+        <div class="choice-row">
+          <input type="radio" name="answer">
+          <input type="text" class="input-field" value="敷居（しきい）">
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>選択肢D</label>
+        <div class="choice-row">
+          <input type="radio" name="answer">
+          <input type="text" class="input-field" value="廻り縁（まわりぶち）">
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Explanation -->
+      <div class="input-group">
+        <label>解説</label>
+        <textarea class="input-field" rows="4">巾木（はばき）は、壁と床の接合部分に取り付ける部材です。壁の下部を保護し、隙間を隠す役割があります。木製・樹脂製・MDF製などの種類があり、内装仕上げの基本的な部材のひとつです。</textarea>
+      </div>
+
+    </div>
+
+    <!-- Buttons -->
+    <div class="btn-group">
+      <button class="btn btn-primary">この内容で保存する</button>
+      <a href="questions.html" class="btn btn-outline">キャンセル</a>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

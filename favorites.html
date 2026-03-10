@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お気に入り - Dr.直し屋ラーニング</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .fav-tabs {
+      display: flex;
+      background: var(--white);
+      border-bottom: 2px solid var(--gray-100);
+    }
+    .fav-tab {
+      flex: 1;
+      text-align: center;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gray-400);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+      background: none;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      font-family: inherit;
+    }
+    .fav-tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .fav-panel {
+      display: none;
+    }
+    .fav-panel.active {
+      display: block;
+    }
+    .fav-quiz-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .fav-quiz-card:active {
+      transform: scale(0.98);
+    }
+    .fav-quiz-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .fav-quiz-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: var(--primary-pale);
+    }
+    .fav-quiz-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .fav-quiz-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-800);
+      margin-bottom: 4px;
+    }
+    .fav-quiz-meta {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    .fav-heart {
+      flex-shrink: 0;
+      color: var(--danger);
+      font-size: 18px;
+    }
+    .fav-video-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .fav-video-card:active {
+      transform: scale(0.98);
+    }
+    .fav-video-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .fav-video-thumb {
+      width: 72px;
+      height: 54px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .fav-video-thumb.bg-green {
+      background: linear-gradient(135deg, #86EFAC, #22C55E);
+    }
+    .fav-video-thumb.bg-purple {
+      background: linear-gradient(135deg, #C4B5FD, #8B5CF6);
+    }
+    .fav-video-play {
+      width: 28px;
+      height: 28px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--gray-700);
+    }
+    .fav-video-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .fav-video-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-800);
+      margin-bottom: 4px;
+    }
+    .fav-video-meta {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="app-body">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <h1>お気に入り</h1>
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <div class="fav-tabs">
+      <button class="fav-tab active" onclick="switchFavTab('quiz')">クイズ</button>
+      <button class="fav-tab" onclick="switchFavTab('video')">動画</button>
+    </div>
+
+    <!-- Quiz Panel -->
+    <div class="fav-panel active" id="panel-quiz">
+      <div class="section">
+
+        <!-- Quiz 1 -->
+        <a href="quiz.html" class="fav-quiz-card">
+          <div class="fav-quiz-icon">🏠</div>
+          <div class="fav-quiz-body">
+            <div class="fav-quiz-title">壁紙（クロス）の種類を答えよう</div>
+            <div class="fav-quiz-meta">内装・初級</div>
+          </div>
+          <span class="fav-heart">&#x2665;</span>
+        </a>
+
+        <!-- Quiz 2 -->
+        <a href="quiz.html" class="fav-quiz-card">
+          <div class="fav-quiz-icon" style="background: #FEF3C7;">🎨</div>
+          <div class="fav-quiz-body">
+            <div class="fav-quiz-title">塗料の種類と特徴</div>
+            <div class="fav-quiz-meta">塗装・中級</div>
+          </div>
+          <span class="fav-heart">&#x2665;</span>
+        </a>
+
+        <!-- Quiz 3 -->
+        <a href="quiz.html" class="fav-quiz-card">
+          <div class="fav-quiz-icon" style="background: #FEE2E2;">🔧</div>
+          <div class="fav-quiz-body">
+            <div class="fav-quiz-title">電動ドリルの正しい使い方</div>
+            <div class="fav-quiz-meta">道具・初級</div>
+          </div>
+          <span class="fav-heart">&#x2665;</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Video Panel -->
+    <div class="fav-panel" id="panel-video">
+      <div class="section">
+
+        <!-- Video 1 -->
+        <a href="video.html" class="fav-video-card">
+          <div class="fav-video-thumb bg-green">
+            <div class="fav-video-play">&#x25B6;</div>
+          </div>
+          <div class="fav-video-body">
+            <div class="fav-video-title">壁紙の貼り方 基礎講座</div>
+            <div class="fav-video-meta">内装・12:30</div>
+          </div>
+          <span class="fav-heart">&#x2665;</span>
+        </a>
+
+        <!-- Video 2 -->
+        <a href="video.html" class="fav-video-card">
+          <div class="fav-video-thumb bg-purple">
+            <div class="fav-video-play">&#x25B6;</div>
+          </div>
+          <div class="fav-video-body">
+            <div class="fav-video-title">サンダーの使い方と選び方</div>
+            <div class="fav-video-meta">道具・15:20</div>
+          </div>
+          <span class="fav-heart">&#x2665;</span>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <a href="home.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>ホーム</span></a>
+    <a href="genres.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>ジャンル</span></a>
+    <a href="favorites.html" class="nav-item active"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>お気に入り</span></a>
+    <a href="mypage.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>マイページ</span></a>
+  </nav>
+</div>
+
+<script>
+  function switchFavTab(tab) {
+    // Update tab buttons
+    document.querySelectorAll('.fav-tab').forEach(function(el) {
+      el.classList.remove('active');
+    });
+    // Update panels
+    document.querySelectorAll('.fav-panel').forEach(function(el) {
+      el.classList.remove('active');
+    });
+
+    if (tab === 'quiz') {
+      document.querySelectorAll('.fav-tab')[0].classList.add('active');
+      document.getElementById('panel-quiz').classList.add('active');
+    } else {
+      document.querySelectorAll('.fav-tab')[1].classList.add('active');
+      document.getElementById('panel-video').classList.add('active');
+    }
+  }
+</script>
+</body>
+</html>
