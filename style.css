@@ -2,14 +2,17 @@
    Dr.直し屋 ラーニング - Shared Styles
    ======================================== */
 :root {
-  --primary: #3B82F6;
-  --primary-dark: #2563EB;
-  --primary-light: #93BBFD;
-  --primary-pale: #DBEAFE;
-  --primary-bg: #EFF6FF;
-  --accent: #F59E0B;
-  --accent-dark: #D97706;
-  --accent-light: #FDE68A;
+  --primary: #0EA5E9;
+  --primary-dark: #0284C7;
+  --primary-light: #7DD3FC;
+  --primary-pale: #E0F2FE;
+  --primary-bg: #F0F9FF;
+  --accent: #2ED573;
+  --accent-dark: #1DB954;
+  --accent-light: #86EFAC;
+  --coral: #FF6B6B;
+  --coral-dark: #EF4444;
+  --coral-light: #FCA5A5;
   --bg: #F8FAFC;
   --white: #FFFFFF;
   --gray-50: #F8FAFC;
@@ -23,9 +26,9 @@
   --gray-800: #1E293B;
   --text: #1E293B;
   --text-light: #64748B;
-  --danger: #EF4444;
-  --success: #22C55E;
-  --info: #3B82F6;
+  --danger: #FF6B6B;
+  --success: #2ED573;
+  --info: #0EA5E9;
   --radius: 14px;
   --radius-sm: 10px;
   --radius-xs: 6px;
@@ -131,12 +134,14 @@ img { max-width: 100%; }
 .btn-primary:hover { background: var(--primary-dark); }
 .btn-accent { background: var(--accent); color: var(--white); }
 .btn-accent:hover { background: var(--accent-dark); }
+.btn-coral { background: var(--coral); color: var(--white); }
+.btn-coral:hover { background: var(--coral-dark); }
 .btn-outline { background: transparent; border: 2px solid var(--gray-200); color: var(--text); }
 .btn-outline:hover { background: var(--gray-50); border-color: var(--gray-300); }
 .btn-ghost { background: transparent; color: var(--primary); }
 .btn-white { background: white; color: var(--primary); }
 .btn-sm { padding: 8px 16px; font-size: 13px; border-radius: var(--radius-sm); }
-.btn-danger-outline { background: transparent; border: 2px solid var(--danger); color: var(--danger); }
+.btn-danger-outline { background: transparent; border: 2px solid var(--coral); color: var(--coral); }
 
 /* ---- Cards ---- */
 .card {
@@ -157,10 +162,10 @@ img { max-width: 100%; }
   padding: 3px 10px; border-radius: 20px;
   font-size: 11px; font-weight: 600;
 }
-.tag-free { background: #DCFCE7; color: #166534; }
+.tag-free { background: #DCFCE7; color: #15803D; }
 .tag-premium { background: #FEF3C7; color: #92400E; }
-.tag-done { background: #DCFCE7; color: #166534; }
-.tag-new { background: #FEE2E2; color: #991B1B; }
+.tag-done { background: #E0F2FE; color: #0369A1; }
+.tag-new { background: #FFE0E0; color: #DC2626; }
 .tag-level { background: var(--gray-100); color: var(--gray-600); }
 
 /* ---- Progress ---- */
@@ -240,7 +245,7 @@ textarea.input-field { resize: vertical; min-height: 100px; }
 
 /* ---- Fav icon ---- */
 .fav { color: var(--gray-300); cursor: pointer; font-size: 18px; transition: color 0.2s; }
-.fav.on { color: var(--danger); }
+.fav.on { color: var(--coral); }
 
 /* ---- Dividers ---- */
 .divider { height: 1px; background: var(--gray-100); margin: 20px 0; }
@@ -264,17 +269,17 @@ textarea.input-field { resize: vertical; min-height: 100px; }
 }
 .banner:active { transform: scale(0.98); }
 .banner-gradient {
-  background: linear-gradient(135deg, var(--primary), #6366F1);
+  background: linear-gradient(135deg, var(--primary), #38BDF8);
   color: white;
 }
 .banner-accent {
-  background: linear-gradient(135deg, var(--accent), #F97316);
+  background: linear-gradient(135deg, var(--coral), #FF8787);
   color: white;
 }
 
 /* ---- Hero ---- */
 .hero {
-  background: linear-gradient(135deg, var(--primary) 0%, #6366F1 50%, var(--primary-dark) 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, #38BDF8 50%, #0284C7 100%);
   color: var(--white); padding: 48px 24px 40px; text-align: center;
 }
 .hero h2 { font-size: 26px; line-height: 1.4; margin-bottom: 12px; font-weight: 800; }
@@ -289,10 +294,10 @@ textarea.input-field { resize: vertical; min-height: 100px; }
 
 /* ---- Genre cards ---- */
 .genre-card { border-left: 4px solid var(--primary); }
-.genre-card.c1 { border-left-color: #F59E0B; }
-.genre-card.c2 { border-left-color: #3B82F6; }
-.genre-card.c3 { border-left-color: #22C55E; }
-.genre-card.c4 { border-left-color: #EF4444; }
+.genre-card.c1 { border-left-color: #0EA5E9; }
+.genre-card.c2 { border-left-color: #2ED573; }
+.genre-card.c3 { border-left-color: #FF6B6B; }
+.genre-card.c4 { border-left-color: #F59E0B; }
 .genre-card.c5 { border-left-color: #8B5CF6; }
 
 /* ---- Price ---- */
